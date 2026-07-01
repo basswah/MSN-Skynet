@@ -1,0 +1,43 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-primary-dark: #293681;
+  --color-primary-blue: #4274D9;
+  --color-secondary: #95CCDD;
+  --color-tertiary: #D0E7E6;
+  --color-bg: #F5F5F5;
+  --color-bg-dark: #0F172A;
+  --color-surface-dark: #1E293B;
+  --color-border-dark: #334155;
+  --font-sans: 'Tajawal', 'Cabinet Grotesk', system-ui, sans-serif;
+  --font-display: 'Tajawal', 'Cabinet Grotesk', system-ui, sans-serif;
+}
+
+@layer base {
+  * {
+    scroll-behavior: smooth;
+  }
+
+  html {
+    font-family: var(--font-sans);
+  }
+
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-primary-dark);
+    overflow-x: hidden;
+  }
+
+  @variant dark {
+    body {
+      background-color: var(--color-bg-dark);
+      color: #E2E8F0;
+    }
+  }
+
+  html[dir="ltr"] {
+    font-family: 'Cabinet Grotesk', 'Tajawal', system-ui, sans-serif;
+  }
+}

@@ -1,0 +1,6 @@
+export type { ILocale, IIconProps, IAnimationProps } from './shared'
+export type { INavLink } from './navigation'
+export type { IPricingPlan, IPricingFeature } from './pricing'
+export type { ITestimonial } from './testimonial'
+export type { IFeature } from './feature'
+export type { IStatItem } from './stats'
