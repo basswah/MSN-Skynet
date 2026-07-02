@@ -241,7 +241,7 @@ export function Navbar() {
                 onClick={toggleMobileMenu}
                 className={`relative w-10 h-10 flex items-center justify-center rounded-xl transition-colors duration-300 cursor-pointer ${isOverDarkBg ? 'text-white hover:bg-white/10' : 'text-slate-900 hover:bg-slate-900/5 dark:text-white dark:hover:bg-white/5'}`}
                 whileTap={{ scale: 0.9 }}
-                aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
+                aria-label={isMobileMenuOpen ? t('nav.closeMenu') : t('nav.openMenu')}
               >
                 <AnimatePresence mode="wait">
                   {isMobileMenuOpen ? (
@@ -290,7 +290,7 @@ export function Navbar() {
               initial="hidden"
               animate="visible"
               exit="exit"
-              className="fixed top-0 right-0 bottom-0 z-50 w-[min(320px,85vw)] lg:hidden flex flex-col bg-white/20 dark:bg-slate-950/30 backdrop-blur-xl border-l border-slate-200/60 dark:border-slate-800/60 shadow-[-20px_0_60px_rgba(0,0,0,0.15)]"
+              className="fixed top-0 end-0 bottom-0 z-50 w-[min(320px,85vw)] lg:hidden flex flex-col bg-white/20 dark:bg-slate-950/30 backdrop-blur-xl border-s border-slate-200/60 dark:border-slate-800/60 shadow-[-20px_0_60px_rgba(0,0,0,0.15)]"
             >
               <div className="flex items-center justify-between px-5 h-16 border-b border-slate-200/40 dark:border-slate-800/40">
                 <a href="#hero" onClick={closeMobile} className="flex items-center gap-2 font-extrabold text-lg text-slate-900 dark:text-white">
@@ -302,7 +302,7 @@ export function Navbar() {
                   onClick={closeMobile}
                   className="w-9 h-9 flex items-center justify-center rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-900/5 dark:hover:bg-white/5 transition-colors cursor-pointer"
                   whileTap={{ scale: 0.9 }}
-                  aria-label="Close menu"
+                  aria-label={t('nav.closeMenu')}
                 >
                   <X size={18} weight="bold" />
                 </motion.button>

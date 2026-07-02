@@ -277,11 +277,11 @@ export function Footer() {
 
           <div className="flex items-center gap-4">
             <a href="#" className="text-[11px] text-white/15 hover:text-white/40 transition-colors duration-300">
-              Privacy Policy
+              {t('footer.privacyPolicy')}
             </a>
             <span className="w-px h-3 bg-white/10" />
             <a href="#" className="text-[11px] text-white/15 hover:text-white/40 transition-colors duration-300">
-              Terms of Service
+              {t('footer.termsOfService')}
             </a>
           </div>
 
