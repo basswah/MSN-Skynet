@@ -3,14 +3,22 @@ import { Sun, Moon } from '@phosphor-icons/react'
 import { useThemeStore } from '../../store/useThemeStore'
 import { useI18nStore } from '../../store/useI18nStore'
 
-export function ThemeToggle() {
+interface ThemeToggleProps {
+  lightOverride?: boolean
+}
+
+export function ThemeToggle({ lightOverride = false }: ThemeToggleProps) {
   const { isDarkMode, toggleTheme } = useThemeStore()
   const t = useI18nStore((state) => state.t)
 
   return (
     <motion.button
       onClick={toggleTheme}
-      className="group relative flex items-center justify-center w-9 h-9 rounded-full text-[#293681]/60 dark:text-white/60 hover:text-[#293681] dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5 transition-colors duration-300 cursor-pointer"
+      className={`group relative flex items-center justify-center w-9 h-9 rounded-full transition-colors duration-300 cursor-pointer ${
+        lightOverride
+          ? 'text-white/70 hover:text-white hover:bg-white/10'
+          : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-900/5 dark:hover:bg-white/5'
+      }`}
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.9 }}
       aria-label={isDarkMode ? t('theme.toggle.light') : t('theme.toggle.dark')}

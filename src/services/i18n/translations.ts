@@ -93,11 +93,11 @@ export const translations: ILocaleMap = {
     'contact.sent': 'تم الإرسال',
     'contact.form.title': 'أرسل لنا رسالة',
 
-    'contact.phone.value': '+970 59 123 4567',
+    'contact.phone.value': '+963 95 123 4567',
     'contact.email.value': 'info@skynet.ps',
-    'contact.address.value': 'غزة - شارع الرشيد - برج Skynet',
+    'contact.address.value': 'ريف دمشق - عربين - مبنى Skynet الرئيسي',
 
-    'footer.description': 'Skynet شركة رائدة في مجال الاتصالات والإنترنت، نقدم خدمات عالية الجودة بأسعار تنافسية.',
+    'footer.description': 'Skynet شركة رائدة في مجال الاتصالات والإنترنت في سوريا، نقدم خدمات عالية الجودة بأسعار تنافسية.',
     'footer.quickLinks': 'روابط سريعة',
     'footer.followUs': 'تابعنا',
     'footer.copyright': 'جميع الحقوق محفوظة © 2026 Skynet',
@@ -208,11 +208,11 @@ export const translations: ILocaleMap = {
     'contact.sent': 'Sent Successfully',
     'contact.form.title': 'Send Us a Message',
 
-    'contact.phone.value': '+970 59 123 4567',
+    'contact.phone.value': '+963 95 123 4567',
     'contact.email.value': 'info@skynet.ps',
-    'contact.address.value': 'Gaza - Al Rashid Street - Skynet Tower',
+    'contact.address.value': 'Rif Damascus - Arbin - Skynet HQ',
 
-    'footer.description': 'Skynet is a leading telecommunications and internet company, providing high-quality services at competitive prices.',
+    'footer.description': 'Skynet is a leading telecommunications and internet company in Syria, providing high-quality services at competitive prices.',
     'footer.quickLinks': 'Quick Links',
     'footer.followUs': 'Follow Us',
     'footer.copyright': 'All rights reserved © 2026 Skynet',

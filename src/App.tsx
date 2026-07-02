@@ -7,20 +7,23 @@ import { Features } from './components/sections/Features'
 import { Testimonials } from './components/sections/Testimonials'
 import { Contact } from './components/sections/Contact'
 import { ScrollProgress } from './components/ui/ScrollProgress'
+import { SmoothScrollLayout } from './components/layout/SmoothScrollLayout'
 
 function App() {
   return (
-    <main>
-      <ScrollProgress />
-      <Navbar />
-      <Hero />
-      <Features />
-      <PricingSection />
-      <Stats />
-      <Testimonials />
-      <Contact />
-      <Footer />
-    </main>
+    <SmoothScrollLayout>
+      <main>
+        <ScrollProgress />
+        <Navbar />
+        <Hero />
+        <Features />
+        <PricingSection />
+        <Stats />
+        <Testimonials />
+        <Contact />
+        <Footer />
+      </main>
+    </SmoothScrollLayout>
   )
 }
 

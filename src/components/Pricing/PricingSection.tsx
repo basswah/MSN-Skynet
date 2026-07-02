@@ -1,43 +1,49 @@
-import React from 'react'
-import { motion, type Variants } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { useI18nStore } from '../../store/useI18nStore'
 import { pricingPackages } from './pricingData'
 import { PricingCard } from './PricingCard'
 
-const containerVariants: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.2 },
-  },
-}
+const ease = [0.32, 0.72, 0, 1] as const
 
-const itemVariants: Variants = {
-  hidden: { y: 50, opacity: 0 },
-  visible: { y: 0, opacity: 1, transition: { type: 'spring' as const, stiffness: 100 } },
-}
+export function PricingSection() {
+  const t = useI18nStore((state) => state.t)
 
-export const PricingSection: React.FC = () => {
-  const { t } = useI18nStore()
   return (
-    <section className="py-16 bg-[#F5F5F5] dark:bg-[#0F172A]" id="pricing">
-      <div className="container mx-auto px-4 text-center mb-12">
-        <h2 className="text-3xl font-bold mb-2 text-[#293681] dark:text-white">{t('pricing.title')}</h2>
-        <p className="text-[#293681]/60 dark:text-white/50">{t('pricing.subtitle')}</p>
+    <section className="py-14 sm:py-20 lg:py-28 bg-slate-50 dark:bg-slate-950 overflow-hidden" id="services">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.8, ease }}
+          className="text-center mb-10 sm:mb-14 lg:mb-18"
+        >
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight leading-none text-slate-900 dark:text-white">
+            <span className="bg-gradient-to-r from-[#4274D9] to-[#95CCDD] bg-clip-text text-transparent">
+              {t('pricing.title')}
+            </span>
+          </h2>
+          <div className="w-12 h-0.5 bg-gradient-to-r from-[#4274D9] to-[#95CCDD] rounded-full mx-auto mt-5" />
+          <p className="mt-5 text-base text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+            {t('pricing.subtitle')}
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10 items-start">
+          {pricingPackages.map((pkg, i) => (
+            <motion.div
+              key={pkg.id}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-60px' }}
+              transition={{ duration: 0.6, delay: i * 0.15, ease }}
+              className={pkg.isPopular ? 'md:-mt-4 lg:-mt-6' : ''}
+            >
+              <PricingCard pkg={pkg} />
+            </motion.div>
+          ))}
+        </div>
       </div>
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4"
-      >
-        {pricingPackages.map((pkg) => (
-          <motion.div key={pkg.id} variants={itemVariants}>
-            <PricingCard pkg={pkg} />
-          </motion.div>
-        ))}
-      </motion.div>
     </section>
   )
 }

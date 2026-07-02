@@ -1,14 +1,22 @@
 import { motion } from 'framer-motion'
 import { useI18nStore } from '../../store/useI18nStore'
 
-export function LanguageToggle() {
+interface LanguageToggleProps {
+  lightOverride?: boolean
+}
+
+export function LanguageToggle({ lightOverride = false }: LanguageToggleProps) {
   const { locale, setLanguage, t } = useI18nStore()
   const isAr = locale.lang === 'ar'
 
   return (
     <button
       onClick={() => setLanguage(isAr ? 'en' : 'ar')}
-      className="relative flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium text-[#95CCDD] hover:bg-white/5 transition-colors duration-300 cursor-pointer"
+      className={`relative flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors duration-300 cursor-pointer ${
+        lightOverride
+          ? 'text-white/70 hover:text-white hover:bg-white/10'
+          : 'text-[#95CCDD] hover:bg-white/5 dark:hover:bg-white/5'
+      }`}
       aria-label={isAr ? t('lang.toggle.en') : t('lang.toggle.ar')}
     >
       <motion.span
