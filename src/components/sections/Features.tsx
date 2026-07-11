@@ -47,7 +47,8 @@ export function Features() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-60px' }}
                 transition={{ duration: 0.6, delay: i * 0.1, ease }}
-                className="group relative bg-white/50 dark:bg-slate-900/40 backdrop-blur-sm border border-slate-200/60 dark:border-slate-800/60 rounded-2xl p-5 sm:p-8 transition-all duration-500 ease-out hover:-translate-y-2 hover:border-[#4274D9]/40 dark:hover:border-[#95CCDD]/30 hover:shadow-xl hover:shadow-[#4274D9]/5 will-change-transform"
+                className="group relative bg-white/50 dark:bg-slate-900/40 backdrop-blur-sm border border-slate-200/60 dark:border-slate-800/60 rounded-2xl p-5 sm:p-8 transition-all duration-200 ease-out hover:-translate-y-2 hover:border-[#4274D9]/40 dark:hover:border-[#95CCDD]/30 hover:shadow-xl hover:shadow-[#4274D9]/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4274D9] focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-950 will-change-transform"
+                tabIndex={0}
               >
                 <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#4274D9] to-[#95CCDD] flex items-center justify-center mb-5 transition-transform duration-500 ease-out group-hover:scale-110">
                   <Icon size={22} weight="fill" className="text-white" />

@@ -4,15 +4,13 @@ import {
   useMotionValue,
   useSpring,
   useTransform,
-  useAnimationFrame,
   type MotionValue,
 } from 'framer-motion'
 import { WifiHigh } from '@phosphor-icons/react'
 import { useI18nStore } from '../../store/useI18nStore'
-
-const WAVE_RING_COUNT = 3
-const WAVE_DURATION = 3.2
-const ORBIT_DOTS = 12
+import { WaveRings } from './WaveRings'
+import { OrbitalRing } from './OrbitalRing'
+import { OrbitDots } from './OrbitDots'
 
 interface HeroVisualProps {
   scrollProgress: MotionValue<number>
@@ -101,148 +99,6 @@ export function HeroVisual({ scrollProgress }: HeroVisualProps) {
           </motion.div>
         </motion.div>
       </motion.div>
-    </div>
-  )
-}
-
-function WaveRings() {
-  return (
-    <>
-      {Array.from({ length: WAVE_RING_COUNT }).map((_, i) => {
-        const delay = i * (WAVE_DURATION / WAVE_RING_COUNT)
-        const baseScale = 0.8 + i * 0.25
-
-        return (
-          <motion.div
-            key={i}
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full pointer-events-none"
-            style={{
-              width: '90%',
-              aspectRatio: '1',
-            }}
-          >
-            <motion.div
-              className="absolute inset-0 rounded-full border border-[#4274D9]/25 dark:border-[#95CCDD]/15"
-              initial={{ scale: baseScale, opacity: 0.5 }}
-              animate={{
-                scale: [baseScale, baseScale + 0.8, baseScale + 1.4],
-                opacity: [0.5, 0.3, 0],
-              }}
-              transition={{
-                duration: WAVE_DURATION,
-                repeat: Infinity,
-                delay,
-                ease: 'easeOut',
-              }}
-            />
-            <motion.div
-              className="absolute inset-0 rounded-full border border-[#4274D9]/15 dark:border-[#95CCDD]/10"
-              initial={{ scale: baseScale, opacity: 0.3 }}
-              animate={{
-                scale: [baseScale, baseScale + 0.6, baseScale + 1.2],
-                opacity: [0.3, 0.15, 0],
-              }}
-              transition={{
-                duration: WAVE_DURATION,
-                repeat: Infinity,
-                delay: delay + 0.4,
-                ease: 'easeOut',
-              }}
-            />
-          </motion.div>
-        )
-      })}
-    </>
-  )
-}
-
-function OrbitalRing() {
-  const angle = useMotionValue(0)
-
-  useAnimationFrame((_, delta) => {
-    angle.set(angle.get() + delta * 0.035)
-  })
-
-  return (
-    <motion.div
-      className="absolute inset-0 pointer-events-none"
-      style={{ rotate: angle }}
-    >
-      <svg className="w-full h-full" viewBox="0 0 100 100" fill="none">
-        <defs>
-          <linearGradient id="orbit-light" x1="0" y1="0" x2="100" y2="100">
-            <stop offset="0%" stopColor="#4274D9" stopOpacity="0" />
-            <stop offset="35%" stopColor="#4274D9" stopOpacity="0.45" />
-            <stop offset="65%" stopColor="#4274D9" stopOpacity="0.45" />
-            <stop offset="100%" stopColor="#4274D9" stopOpacity="0" />
-          </linearGradient>
-          <linearGradient id="orbit-dark" x1="0" y1="0" x2="100" y2="100">
-            <stop offset="0%" stopColor="#95CCDD" stopOpacity="0" />
-            <stop offset="35%" stopColor="#95CCDD" stopOpacity="0.4" />
-            <stop offset="65%" stopColor="#95CCDD" stopOpacity="0.4" />
-            <stop offset="100%" stopColor="#95CCDD" stopOpacity="0" />
-          </linearGradient>
-        </defs>
-        <ellipse
-          cx="50"
-          cy="50"
-          rx="47"
-          ry="47"
-          stroke="url(#orbit-light)"
-          strokeWidth="1.2"
-          strokeDasharray="4 8"
-          className="dark:hidden"
-        />
-        <ellipse
-          cx="50"
-          cy="50"
-          rx="47"
-          ry="47"
-          stroke="url(#orbit-dark)"
-          strokeWidth="1.2"
-          strokeDasharray="4 8"
-          className="hidden dark:block"
-        />
-      </svg>
-    </motion.div>
-  )
-}
-
-function OrbitDots() {
-  const dots = Array.from({ length: ORBIT_DOTS }).map((_, i) => ({
-    id: i,
-    angle: (360 / ORBIT_DOTS) * i,
-  }))
-
-  return (
-    <div className="absolute inset-0 pointer-events-none">
-      {dots.map((dot) => (
-        <motion.div
-          key={dot.id}
-          className="absolute top-1/2 left-1/2"
-          style={{
-            width: 3,
-            height: 3,
-            marginLeft: -1.5,
-            marginTop: -1.5,
-          }}
-          animate={{
-            rotate: [dot.angle, dot.angle + 360],
-          }}
-          transition={{
-            duration: 20 + dot.id * 0.5,
-            repeat: Infinity,
-            ease: 'linear',
-          }}
-        >
-          <div
-            className="w-[3px] h-[3px] rounded-full bg-[#4274D9]/50 dark:bg-[#95CCDD]/40"
-            style={{
-              transform: `translateX(${180 + (dot.id % 3) * 8}px)`,
-            }}
-          />
-        </motion.div>
-      ))}
     </div>
   )
 }

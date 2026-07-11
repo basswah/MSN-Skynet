@@ -7,13 +7,14 @@ interface IContactInfo {
   icon: typeof Phone
   labelKey: string
   valueKey: string
+  href: string
   dir?: 'ltr'
 }
 
 const contactInfo: IContactInfo[] = [
-  { id: 'phone', icon: Phone, labelKey: 'contact.phone', valueKey: 'contact.phone.value', dir: 'ltr' },
-  { id: 'email', icon: Envelope, labelKey: 'contact.email', valueKey: 'contact.email.value' },
-  { id: 'address', icon: MapPin, labelKey: 'contact.address', valueKey: 'contact.address.value' },
+  { id: 'phone', icon: Phone, labelKey: 'contact.phone', valueKey: 'contact.phone.value', href: 'https://wa.me/963994817193', dir: 'ltr' },
+  { id: 'email', icon: Envelope, labelKey: 'contact.email', valueKey: 'contact.email.value', href: 'mailto:info@skynet.sy' },
+  { id: 'address', icon: MapPin, labelKey: 'contact.address', valueKey: 'contact.address.value', href: 'https://www.google.com/maps/search/?api=1&query=33.5363381,36.359278' },
 ]
 
 const ease = [0.32, 0.72, 0, 1] as const
@@ -39,7 +40,7 @@ export function Contact() {
           transition={{ duration: 0.8, ease }}
           className="text-center mb-16 lg:mb-24"
         >
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#293681]/5 dark:bg-[#95CCDD]/10 text-[#4274D9] dark:text-[#95CCDD] text-xs font-semibold tracking-widest uppercase mb-6">
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#293681]/5 dark:bg-[#95CCDD]/10 text-[#4274D9] dark:text-[#95CCDD] text-xs font-semibold tracking-wider mb-6">
             <EnvelopeSimple size={14} weight="fill" />
             {t('contact.title')}
           </span>
@@ -56,18 +57,21 @@ export function Contact() {
           {contactInfo.map((item, i) => {
             const Icon = item.icon
             return (
-              <motion.div
+              <motion.a
                 key={item.id}
+                href={item.href}
+                target={item.id === 'address' ? '_blank' : undefined}
+                rel={item.id === 'address' ? 'noopener noreferrer' : undefined}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-40px' }}
                 transition={{ duration: 0.6, delay: i * 0.1, ease }}
-                className="group flex flex-col items-center text-center p-6 rounded-2xl bg-white/50 dark:bg-slate-900/30 backdrop-blur-sm border border-[#4274D9]/8 dark:border-[#95CCDD]/10 hover:bg-white/80 dark:hover:bg-slate-900/50 hover:border-[#4274D9]/15 dark:hover:border-[#95CCDD]/20 transition-all duration-300"
+                className="group flex flex-col items-center text-center p-6 rounded-2xl bg-white/50 dark:bg-slate-900/30 backdrop-blur-sm border border-[#4274D9]/8 dark:border-[#95CCDD]/10 hover:bg-white/80 dark:hover:bg-slate-900/50 hover:border-[#4274D9]/15 dark:hover:border-[#95CCDD]/20 transition-all duration-300 cursor-pointer"
               >
                 <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#4274D9]/10 to-[#95CCDD]/10 dark:from-[#95CCDD]/10 dark:to-[#4274D9]/10 flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110">
                   <Icon size={24} className="text-[#4274D9] dark:text-[#95CCDD]" weight="duotone" />
                 </div>
-                <p className="text-[11px] font-semibold tracking-[0.15em] uppercase text-slate-500 dark:text-slate-400 mb-2">
+                <p className="text-[11px] font-semibold tracking-[0.15em] text-slate-500 dark:text-slate-400 mb-2">
                   {t(item.labelKey)}
                 </p>
                 <p
@@ -76,7 +80,7 @@ export function Contact() {
                 >
                   {t(item.valueKey)}
                 </p>
-              </motion.div>
+              </motion.a>
             )
           })}
         </div>
@@ -88,14 +92,17 @@ export function Contact() {
           transition={{ duration: 0.8, delay: 0.3, ease }}
           className="mt-12 max-w-4xl mx-auto rounded-2xl overflow-hidden border border-[#4274D9]/10 dark:border-[#95CCDD]/15"
         >
-          <div className="relative h-56 bg-gradient-to-br from-[#D0E7E6] to-[#95CCDD]/30 dark:from-slate-900 dark:to-[#4274D9]/10 flex items-center justify-center">
-            <div className="text-center">
-              <MapPin size={36} className="text-[#4274D9] dark:text-[#95CCDD] mx-auto mb-3" weight="duotone" />
-              <p className="text-base font-medium text-slate-900 dark:text-white">
-                {t('contact.address.value')}
-              </p>
-            </div>
-          </div>
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3304.0!2d36.359278!3d33.5363381!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1518e5d075d02c03%3A0x87bb952a6ce03e11!2sArbin%2C%20Syria!5e0!3m2!1sen!2s!4v1700000000000!5m2!1sen!2s"
+            width="100%"
+            height="300"
+            style={{ border: 0 }}
+            allowFullScreen
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            title={t('contact.address.value')}
+            className="w-full"
+          />
         </motion.div>
       </div>
     </section>

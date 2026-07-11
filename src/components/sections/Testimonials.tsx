@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { Quotes, Star } from '@phosphor-icons/react'
+import { Quotes, Star, User } from '@phosphor-icons/react'
 import { useI18nStore } from '../../store/useI18nStore'
 import type { ITestimonial } from '../../types'
 
@@ -10,6 +10,16 @@ const testimonials: ITestimonial[] = [
 ]
 
 const ease = [0.32, 0.72, 0, 1] as const
+
+function UserAvatar({ className }: { className?: string }) {
+  return (
+    <div
+      className={`flex items-center justify-center bg-gradient-to-br from-[#4274D9] to-[#293681] dark:from-[#95CCDD] dark:to-[#4274D9] ${className ?? ''}`}
+    >
+      <User size={24} weight="fill" className="text-white dark:text-[#0F172A]" />
+    </div>
+  )
+}
 
 function StarRating({ rating }: { rating: number }) {
   return (
@@ -48,7 +58,7 @@ export function Testimonials() {
           transition={{ duration: 0.8, ease }}
           className="text-center mb-16 lg:mb-24"
         >
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#293681]/5 dark:bg-[#95CCDD]/10 text-[#4274D9] dark:text-[#95CCDD] text-xs font-semibold tracking-widest uppercase mb-6">
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#293681]/5 dark:bg-[#95CCDD]/10 text-[#4274D9] dark:text-[#95CCDD] text-xs font-semibold tracking-wider mb-6">
             <Quotes size={14} weight="fill" />
             {t('testimonials.title')}
           </span>
@@ -87,14 +97,7 @@ export function Testimonials() {
                 </blockquote>
 
                 <div className="flex items-center gap-4 pt-6 border-t border-[#4274D9]/8 dark:border-[#95CCDD]/10">
-                  <div className="w-14 h-14 rounded-2xl overflow-hidden bg-[#D0E7E6]/40 dark:bg-[#4274D9]/15">
-                    <img
-                      src={`https://picsum.photos/seed/sky${featured.id}/200/200`}
-                      alt={t(featured.nameKey)}
-                      className="w-full h-full object-cover"
-                      loading="lazy"
-                    />
-                  </div>
+                  <UserAvatar className="w-14 h-14 rounded-2xl" />
                   <div>
                     <p className="font-bold text-slate-900 dark:text-white text-base">
                       {t(featured.nameKey)}
@@ -116,17 +119,11 @@ export function Testimonials() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: '-40px' }}
                 transition={{ duration: 0.6, delay: index * 0.1, ease }}
-                className="group relative w-full p-5 lg:p-6 rounded-2xl bg-white/60 dark:bg-slate-900/40 backdrop-blur-sm border border-[#4274D9]/8 dark:border-[#95CCDD]/10 hover:bg-white/90 dark:hover:bg-slate-900/70 hover:border-[#4274D9]/20 dark:hover:border-[#95CCDD]/25 transition-all duration-300 hover:shadow-[0_8px_30px_-8px_rgba(66,116,217,0.12)]"
+                className="group relative w-full p-5 lg:p-6 rounded-2xl bg-white/60 dark:bg-slate-900/40 backdrop-blur-sm border border-[#4274D9]/8 dark:border-[#95CCDD]/10 hover:bg-white/90 dark:hover:bg-slate-900/70 hover:border-[#4274D9]/20 dark:hover:border-[#95CCDD]/25 transition-all duration-200 hover:shadow-[0_8px_30px_-8px_rgba(66,116,217,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4274D9] focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-950"
+                tabIndex={0}
               >
                 <div className="flex items-center gap-4 mb-3">
-                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#95CCDD]/30 to-[#D0E7E6]/40 dark:from-[#4274D9]/20 dark:to-[#95CCDD]/10 flex items-center justify-center flex-shrink-0 overflow-hidden">
-                    <img
-                      src={`https://picsum.photos/seed/sky${item.id}/100/100`}
-                      alt={t(item.nameKey)}
-                      className="w-full h-full object-cover"
-                      loading="lazy"
-                    />
-                  </div>
+                  <UserAvatar className="w-10 h-10 rounded-xl flex-shrink-0" />
                   <div className="min-w-0">
                     <p className="text-sm font-bold text-slate-900 dark:text-white truncate">
                       {t(item.nameKey)}

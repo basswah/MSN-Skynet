@@ -1,15 +1,37 @@
 import type { PricingPackage } from '../../types/pricing';
 
-/**
- * Pricing data definitions for the Premium Pricing Section.
- * Each package references i18n keys for title, price, and feature list.
- */
 export const pricingPackages: PricingPackage[] = [
   {
-    id: 'browsing',
-    titleKey: 'pricing.browsing.title',
+    id: 'starter',
+    titleKey: 'pricing.starter.title',
+    speed: '1 Mbps',
+    priceKey: 'pricing.starter.price',
+    featuresKeys: [
+      'pricing.feature.1',
+      'pricing.feature.2',
+      'pricing.feature.3',
+      'pricing.feature.4',
+    ],
+    isPopular: false,
+  },
+  {
+    id: 'basic',
+    titleKey: 'pricing.basic.title',
     speed: '2 Mbps',
-    priceKey: 'pricing.browsing.price',
+    priceKey: 'pricing.basic.price',
+    featuresKeys: [
+      'pricing.feature.1',
+      'pricing.feature.2',
+      'pricing.feature.3',
+      'pricing.feature.4',
+    ],
+    isPopular: false,
+  },
+  {
+    id: 'essential',
+    titleKey: 'pricing.essential.title',
+    speed: '3 Mbps',
+    priceKey: 'pricing.essential.price',
     featuresKeys: [
       'pricing.feature.1',
       'pricing.feature.2',
@@ -32,10 +54,36 @@ export const pricingPackages: PricingPackage[] = [
     isPopular: true,
   },
   {
+    id: 'pro',
+    titleKey: 'pricing.pro.title',
+    speed: '6 Mbps',
+    priceKey: 'pricing.pro.price',
+    featuresKeys: [
+      'pricing.feature.1',
+      'pricing.feature.2',
+      'pricing.feature.3',
+      'pricing.feature.4',
+    ],
+    isPopular: false,
+  },
+  {
     id: 'business',
     titleKey: 'pricing.business.title',
     speed: '8 Mbps',
     priceKey: 'pricing.business.price',
+    featuresKeys: [
+      'pricing.feature.1',
+      'pricing.feature.2',
+      'pricing.feature.3',
+      'pricing.feature.4',
+    ],
+    isPopular: false,
+  },
+  {
+    id: 'enterprise',
+    titleKey: 'pricing.enterprise.title',
+    speed: '10 Mbps',
+    priceKey: 'pricing.enterprise.price',
     featuresKeys: [
       'pricing.feature.1',
       'pricing.feature.2',

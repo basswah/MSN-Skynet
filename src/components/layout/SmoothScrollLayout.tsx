@@ -55,6 +55,12 @@ export function SmoothScrollLayout({
   return (
     <SmoothScrollContext.Provider value={{ lenis: lenisRef.current }}>
       <div data-lenis-prevent={false}>
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 focus:z-[9999] focus:p-4 focus:bg-[#4274D9] focus:text-white focus:rounded-br-xl focus:font-semibold focus:text-sm focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#4274D9] focus:ring-offset-2"
+        >
+          Skip to content
+        </a>
         {children}
       </div>
     </SmoothScrollContext.Provider>

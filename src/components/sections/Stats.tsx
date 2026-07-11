@@ -5,9 +5,9 @@ import { useI18nStore } from '../../store/useI18nStore'
 import type { IStatItem } from '../../types'
 
 const statsData: IStatItem[] = [
-  { id: 'years', value: 15, suffixKey: '+', labelKey: 'stats.years', iconName: 'Buildings' },
-  { id: 'clients', value: 50000, suffixKey: '+', labelKey: 'stats.clients', iconName: 'Users' },
-  { id: 'cities', value: 20, suffixKey: '+', labelKey: 'stats.cities', iconName: 'MapPin' },
+  { id: 'years', value: 10, suffixKey: '+', labelKey: 'stats.years', iconName: 'Buildings' },
+  { id: 'clients', value: 1500, suffixKey: '+', labelKey: 'stats.clients', iconName: 'Users' },
+  { id: 'cities', value: 7, suffixKey: '', labelKey: 'stats.cities', iconName: 'MapPin' },
   { id: 'uptime', value: 99.9, suffixKey: '%', labelKey: 'stats.uptime', iconName: 'Pulse' },
 ]
 
@@ -87,7 +87,8 @@ function StatCard({ stat, index }: StatCardProps) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
       transition={{ duration: 0.6, delay: index * 0.1, ease }}
-      className="group relative bg-white/70 dark:bg-slate-900/50 backdrop-blur-md rounded-2xl p-5 sm:p-6 lg:p-8 border border-[#4274D9]/10 dark:border-[#95CCDD]/20 transition-all duration-300 ease-out hover:shadow-[0_20px_60px_-15px_rgba(66,116,217,0.25)] dark:hover:shadow-[0_20px_60px_-15px_rgba(149,204,221,0.15)] hover:-translate-y-1 will-change-transform"
+      className="group relative bg-white/70 dark:bg-slate-900/50 backdrop-blur-md rounded-2xl p-5 sm:p-6 lg:p-8 border border-[#4274D9]/10 dark:border-[#95CCDD]/20 transition-all duration-200 ease-out hover:shadow-[0_20px_60px_-15px_rgba(66,116,217,0.25)] dark:hover:shadow-[0_20px_60px_-15px_rgba(149,204,221,0.15)] hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4274D9] focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-950 will-change-transform"
+      tabIndex={0}
     >
       <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-[#4274D9]/5 to-transparent dark:from-[#95CCDD]/5 rounded-2xl pointer-events-none" />
       <div className="relative z-10 flex flex-col items-center text-center">
@@ -99,7 +100,7 @@ function StatCard({ stat, index }: StatCardProps) {
           />
         </div>
         <div className="mb-2">
-          <span className="text-3xl lg:text-4xl font-extrabold text-slate-900 dark:text-white font-mono tracking-tight">
+          <span className="text-3xl lg:text-4xl font-extrabold text-slate-900 dark:text-white font-mono tracking-tight tabular-nums">
             {formatNumber(count)}
             {stat.suffixKey}
           </span>
