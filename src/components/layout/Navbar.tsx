@@ -54,7 +54,7 @@ export function Navbar() {
         <div className="relative max-w-[1400px] mx-auto px-4 lg:px-8">
           <div className="flex items-center justify-between h-16 lg:h-[72px]">
             <motion.a href="#hero" variants={navStaggerItem} className="flex items-center shrink-0">
-              <img src={logoSrc} alt="" className="h-8 lg:h-10 w-auto object-contain" />
+              <img src={logoSrc} alt="" className="h-10 lg:h-[60px] w-auto object-contain" />
             </motion.a>
 
             <DesktopNav navItems={navItems} isOverDarkBg={isOverDarkBg} prefersReduced={prefersReduced} />

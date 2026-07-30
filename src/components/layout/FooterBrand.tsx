@@ -29,7 +29,7 @@ export function FooterBrand({ prefersReduced }: { prefersReduced: boolean }) {
       className="lg:col-span-5"
     >
       <SmoothScrollLink href="#hero" className="inline-flex items-center gap-3 mb-5 group">
-        <img src="/skynetLogo-dark.svg" alt="" className="h-[40px] w-auto object-contain" />
+        <img src="/skynetLogo-dark.svg" alt="" className="h-[80px] w-auto object-contain" />
       </SmoothScrollLink>
       <p className="text-sm text-white/35 leading-[1.8] max-w-sm mb-6">
         {t('footer.description')}
