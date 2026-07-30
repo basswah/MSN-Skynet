@@ -28,7 +28,9 @@ export const useThemeStore = create<IThemeState>()(
               document.documentElement.classList.toggle('dark', parsed.state.isDarkMode)
               return
             }
-          } catch {}
+          } catch {
+            // Invalid JSON in localStorage, fall through to system preference
+          }
         }
         const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
         document.documentElement.classList.toggle('dark', prefersDark)

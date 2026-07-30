@@ -3,3 +3,7 @@ export interface INavLink {
   labelKey: string
   href: string
 }
+
+export interface INavItem extends INavLink {
+  isActive: boolean
+}

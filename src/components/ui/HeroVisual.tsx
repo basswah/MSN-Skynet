@@ -8,6 +8,7 @@ import {
 } from 'framer-motion'
 import { WifiHigh } from '@phosphor-icons/react'
 import { useI18nStore } from '../../store/useI18nStore'
+import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion'
 import { WaveRings } from './WaveRings'
 import { OrbitalRing } from './OrbitalRing'
 import { OrbitDots } from './OrbitDots'
@@ -21,6 +22,7 @@ export function HeroVisual({ scrollProgress }: HeroVisualProps) {
   const mouseX = useMotionValue(0.5)
   const mouseY = useMotionValue(0.5)
   const t = useI18nStore((state) => state.t)
+  const prefersReduced = usePrefersReducedMotion()
 
   const rawRotateX = useTransform(mouseY, [0, 1], [18, -18])
   const rawRotateY = useTransform(mouseX, [0, 1], [-18, 18])
@@ -63,9 +65,9 @@ export function HeroVisual({ scrollProgress }: HeroVisualProps) {
       role="img"
       aria-label={t('hero.visual.aria')}
     >
-      <WaveRings />
-      <OrbitalRing />
-      <OrbitDots />
+      {!prefersReduced && <WaveRings />}
+      {!prefersReduced && <OrbitalRing />}
+      {!prefersReduced && <OrbitDots />}
 
       <motion.div
         className="relative z-10 w-full h-full flex items-center justify-center"
@@ -77,9 +79,9 @@ export function HeroVisual({ scrollProgress }: HeroVisualProps) {
         }}
       >
         <motion.div
-          animate={{ y: [0, -12, 0] }}
-          transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut' }}
           className="relative flex items-center justify-center"
+          animate={prefersReduced ? {} : { y: [0, -12, 0] }}
+          transition={prefersReduced ? {} : { duration: 4.5, repeat: Infinity, ease: 'easeInOut' }}
           style={{ transformStyle: 'preserve-3d' }}
         >
           <div className="absolute inset-0 bg-gradient-to-br from-[#4274D9]/30 via-[#95CCDD]/20 to-transparent blur-3xl scale-[1.8] -z-10" />

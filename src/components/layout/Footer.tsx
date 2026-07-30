@@ -11,7 +11,7 @@ export function Footer() {
         <div className="absolute top-1/3 right-0 w-[300px] h-[300px] bg-[#95CCDD]/5 rounded-full blur-[120px]" />
       </div>
 
-      <div className="relative z-10 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative z-0 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <CTABanner />
         <FooterGrid />
         <FooterBar />

@@ -1,16 +1,19 @@
 import { motion, useMotionValue, useTransform } from 'framer-motion'
 import { WifiHigh } from '@phosphor-icons/react'
+import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion'
 
 const NetworkNode = ({ 
   x, 
   y, 
   delay, 
-  size = 40 
+  size = 40,
+  reducedMotion = false,
 }: { 
   x: number
   y: number 
   delay: number
   size?: number
+  reducedMotion?: boolean
 }) => (
   <motion.div
     initial={{ scale: 0, opacity: 0 }}
@@ -21,11 +24,11 @@ const NetworkNode = ({
     style={{ left: `${x}%`, top: `${y}%` }}
   >
     <motion.div
-      animate={{ 
+      animate={reducedMotion ? {} : { 
         y: [0, -8, 0],
         scale: [1, 1.05, 1]
       }}
-      transition={{ 
+      transition={reducedMotion ? {} : { 
         duration: 3, 
         repeat: Infinity, 
         delay: delay * 0.5,
@@ -39,11 +42,13 @@ const NetworkNode = ({
       >
         <WifiHigh size={size * 0.5} className="text-white" weight="bold" />
       </div>
-      <motion.div
-        animate={{ scale: [1, 1.5, 1], opacity: [0.5, 0, 0.5] }}
-        transition={{ duration: 2, repeat: Infinity, delay }}
-        className="absolute inset-0 bg-[#4274D9] rounded-full -z-10"
-      />
+      {!reducedMotion && (
+        <motion.div
+          animate={{ scale: [1, 1.5, 1], opacity: [0.5, 0, 0.5] }}
+          transition={{ duration: 2, repeat: Infinity, delay }}
+          className="absolute inset-0 bg-[#4274D9] rounded-full -z-10"
+        />
+      )}
     </motion.div>
   </motion.div>
 )
@@ -80,6 +85,7 @@ const ConnectionLine = ({
 export function NetworkViz() {
   const mouseX = useMotionValue(0)
   const mouseY = useMotionValue(0)
+  const prefersReduced = usePrefersReducedMotion()
   
   const rotateX = useTransform(mouseY, [-100, 100], [5, -5])
   const rotateY = useTransform(mouseX, [-100, 100], [-5, 5])
@@ -106,21 +112,25 @@ export function NetworkViz() {
         <ConnectionLine x1={50} y1={80} x2={20} y2={60} delay={0.7} />
         <ConnectionLine x1={20} y1={60} x2={20} y2={20} delay={0.9} />
 
-        <NetworkNode x={15} y={15} delay={0.2} size={50} />
-        <NetworkNode x={75} y={35} delay={0.4} size={40} />
-        <NetworkNode x={45} y={75} delay={0.6} size={45} />
-        <NetworkNode x={15} y={55} delay={0.8} size={35} />
+        <NetworkNode x={15} y={15} delay={0.2} size={50} reducedMotion={prefersReduced} />
+        <NetworkNode x={75} y={35} delay={0.4} size={40} reducedMotion={prefersReduced} />
+        <NetworkNode x={45} y={75} delay={0.6} size={45} reducedMotion={prefersReduced} />
+        <NetworkNode x={15} y={55} delay={0.8} size={35} reducedMotion={prefersReduced} />
 
-        <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
-          className="absolute inset-0 border border-dashed border-[#4274D9]/10 dark:border-[#95CCDD]/10 rounded-full"
-        />
-        <motion.div
-          animate={{ rotate: -360 }}
-          transition={{ duration: 45, repeat: Infinity, ease: 'linear' }}
-          className="absolute inset-8 border border-dashed border-[#95CCDD]/10 dark:border-[#4274D9]/10 rounded-full"
-        />
+        {!prefersReduced && (
+          <>
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
+              className="absolute inset-0 border border-dashed border-[#4274D9]/10 dark:border-[#95CCDD]/10 rounded-full"
+            />
+            <motion.div
+              animate={{ rotate: -360 }}
+              transition={{ duration: 45, repeat: Infinity, ease: 'linear' }}
+              className="absolute inset-8 border border-dashed border-[#95CCDD]/10 dark:border-[#4274D9]/10 rounded-full"
+            />
+          </>
+        )}
       </motion.div>
     </motion.div>
   )

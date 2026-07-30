@@ -69,7 +69,7 @@ export function PricingCard({ pkg }: PricingCardProps) {
             {t(pkg.priceKey)}
           </span>
           <span className="text-sm text-slate-400 dark:text-slate-500 mr-1">
-            /شهرياً
+            /{t('pricing.period')}
           </span>
         </div>
 

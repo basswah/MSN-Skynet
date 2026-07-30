@@ -1,15 +1,18 @@
 import { motion } from 'framer-motion'
-import { ArrowUp } from '@phosphor-icons/react'
+import { ArrowRight } from '@phosphor-icons/react'
 import { useI18nStore } from '../../store/useI18nStore'
+import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion'
+import { SmoothScrollLink } from '../ui/SmoothScrollLink'
 
 const ease = [0.32, 0.72, 0, 1] as const
 
 export function CTABanner() {
   const t = useI18nStore((state) => state.t)
+  const prefersReduced = usePrefersReducedMotion()
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
+      initial={prefersReduced ? false : { opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
       transition={{ duration: 0.8, ease }}
@@ -29,18 +32,18 @@ export function CTABanner() {
               {t('footer.cta.description')}
             </p>
           </div>
-          <a
+          <SmoothScrollLink
             href="#contact"
             className="group inline-flex items-center gap-2 px-6 py-3.5 bg-[#4274D9] text-white text-sm font-semibold rounded-xl transition-all duration-200 hover:bg-[#3a64d2] hover:shadow-[0_8px_30px_-12px_rgba(66,116,217,0.4)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4274D9] focus-visible:ring-offset-2 focus-visible:ring-offset-[#020617] active:scale-[0.98] shrink-0"
-            aria-label={t('nav.cta')}
+            ariaLabel={t('nav.cta')}
           >
             {t('nav.cta')}
-            <ArrowUp
+            <ArrowRight
               size={16}
               weight="bold"
-              className="rotate-[-90deg] transition-transform duration-200 group-hover:translate-x-1 rtl:rotate-90 rtl:group-hover:-translate-x-1"
+              className="transition-transform duration-200 group-hover:translate-x-1 rtl:-scale-x-100 rtl:group-hover:-translate-x-1"
             />
-          </a>
+          </SmoothScrollLink>
         </div>
       </div>
     </motion.div>

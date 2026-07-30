@@ -1,13 +1,17 @@
 import { ArrowUp } from '@phosphor-icons/react'
 import { useI18nStore } from '../../store/useI18nStore'
-import { useSmoothScroll } from './SmoothScrollLayout'
+import { useSmoothScroll } from './SmoothScrollContext'
 
 export function FooterBar() {
   const t = useI18nStore((state) => state.t)
   const { lenis } = useSmoothScroll()
 
   const backToTop = () => {
-    lenis?.scrollTo(0, { duration: 1.5 })
+    if (lenis) {
+      lenis.scrollTo(0, { duration: 1.5 })
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
   }
 
   return (
@@ -17,13 +21,13 @@ export function FooterBar() {
       </p>
 
       <div className="flex items-center gap-4">
-        <a href="#" className="text-[11px] text-white/25 hover:text-white/50 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#4274D9] rounded px-1">
+        <span className="text-[11px] text-white/25">
           {t('footer.privacyPolicy')}
-        </a>
+        </span>
         <span className="w-px h-3 bg-white/10" />
-        <a href="#" className="text-[11px] text-white/25 hover:text-white/50 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#4274D9] rounded px-1">
+        <span className="text-[11px] text-white/25">
           {t('footer.termsOfService')}
-        </a>
+        </span>
       </div>
 
       <button

@@ -1,12 +1,13 @@
 import { motion } from 'framer-motion'
-import { Lightning, MapPin, WifiHigh, Headset } from '@phosphor-icons/react'
+import { Lightning, MapPin, WifiHigh, Headset, Gauge } from '@phosphor-icons/react'
 import { useI18nStore } from '../../store/useI18nStore'
 import type { IFeature } from '../../types'
 
-const iconMap = { Lightning, MapPin, WifiHigh, Headset } as const
+const iconMap = { Lightning, MapPin, WifiHigh, Headset, Gauge } as const
 
 const features: IFeature[] = [
   { id: 'installation', iconName: 'Lightning', titleKey: 'feature.installation', descriptionKey: 'feature.installation.desc' },
+  { id: 'highspeed', iconName: 'Gauge', titleKey: 'feature.highspeed', descriptionKey: 'feature.highspeed.desc' },
   { id: 'coverage', iconName: 'MapPin', titleKey: 'feature.coverage', descriptionKey: 'feature.coverage.desc' },
   { id: 'stability', iconName: 'WifiHigh', titleKey: 'feature.stability', descriptionKey: 'feature.stability.desc' },
   { id: 'support', iconName: 'Headset', titleKey: 'feature.support', descriptionKey: 'feature.support.desc' },
@@ -37,7 +38,7 @@ export function Features() {
           <div className="w-12 h-0.5 bg-gradient-to-r from-[#4274D9] to-[#95CCDD] rounded-full mx-auto mt-5" />
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {features.map((feature, i) => {
             const Icon = iconMap[feature.iconName as keyof typeof iconMap]
             return (

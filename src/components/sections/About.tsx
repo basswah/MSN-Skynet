@@ -50,6 +50,12 @@ export function About() {
               {t('about.paragraph2')}
             </p>
 
+            <div className="mt-6 px-4 py-3 border-r-2 border-[#4274D9] dark:border-[#95CCDD] bg-[#4274D9]/5 dark:bg-[#95CCDD]/5 rounded-lg">
+              <p className="text-sm lg:text-base leading-relaxed text-slate-700 dark:text-slate-300 font-medium">
+                {t('about.pride')}
+              </p>
+            </div>
+
             <motion.a
               href="#contact"
               whileHover={{ scale: 1.05 }}

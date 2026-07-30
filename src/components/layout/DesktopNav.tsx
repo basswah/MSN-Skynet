@@ -1,37 +1,40 @@
+import { useCallback } from 'react'
 import { motion } from 'framer-motion'
 import { useI18nStore } from '../../store/useI18nStore'
+import { MagneticButton } from '../ui/MagneticButton'
 import { ThemeToggle } from '../ui/ThemeToggle'
 import { LanguageToggle } from '../ui/LanguageToggle'
-import { MagneticButton } from '../ui/MagneticButton'
-import type { NavItem } from './Navbar'
+import { navStaggerItem } from './navAnimations'
+import type { INavItem } from '../../types'
 
 interface DesktopNavProps {
-  navItems: NavItem[]
+  navItems: INavItem[]
   isOverDarkBg: boolean
+  prefersReduced: boolean
 }
 
-const ease = [0.32, 0.72, 0, 1] as [number, number, number, number]
-
-const staggerItem = {
-  hidden: { y: -20, opacity: 0 },
-  visible: {
-    y: 0,
-    opacity: 1,
-    transition: { duration: 0.6, ease, type: 'spring' as const, stiffness: 120, damping: 18 },
-  },
-}
-
-export function DesktopNav({ navItems, isOverDarkBg }: DesktopNavProps) {
+export function DesktopNav({ navItems, isOverDarkBg, prefersReduced }: DesktopNavProps) {
   const t = useI18nStore((state) => state.t)
+
+  const scrollTo = useCallback((href: string) => {
+    const el = document.querySelector(href)
+    if (!el) return
+    const y = el.getBoundingClientRect().top + window.scrollY - 80
+    window.scrollTo({ top: y, behavior: 'smooth' })
+  }, [])
 
   return (
     <>
-      <nav className="hidden lg:flex items-center gap-1" role="navigation">
+      <nav className="hidden lg:flex items-center gap-1" aria-label="Main navigation">
         {navItems.map((link) => (
           <motion.a
             key={link.id}
             href={link.href}
-            variants={staggerItem}
+            variants={prefersReduced ? {} : navStaggerItem}
+            onClick={(e) => {
+              e.preventDefault()
+              scrollTo(link.href)
+            }}
             className="relative px-4 py-2 text-sm font-medium transition-colors duration-300 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4274D9] focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-950 rounded-lg"
           >
             <span
@@ -60,11 +63,13 @@ export function DesktopNav({ navItems, isOverDarkBg }: DesktopNavProps) {
         ))}
       </nav>
 
-      <motion.div variants={staggerItem} className="hidden lg:flex items-center gap-2">
+      <motion.div variants={prefersReduced ? {} : navStaggerItem} className="hidden lg:flex items-center gap-3.5">
         <LanguageToggle lightOverride={isOverDarkBg} />
         <ThemeToggle lightOverride={isOverDarkBg} />
         <MagneticButton variant="primary" size="sm" strength={0.2}>
-          <a href="#contact">{t('nav.cta')}</a>
+          <a href="#contact" onClick={(e) => { e.preventDefault(); scrollTo('#contact') }}>
+            {t('nav.cta')}
+          </a>
         </MagneticButton>
       </motion.div>
     </>

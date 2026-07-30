@@ -13,7 +13,7 @@ interface IContactInfo {
 
 const contactInfo: IContactInfo[] = [
   { id: 'phone', icon: Phone, labelKey: 'contact.phone', valueKey: 'contact.phone.value', href: 'https://wa.me/963994817193', dir: 'ltr' },
-  { id: 'email', icon: Envelope, labelKey: 'contact.email', valueKey: 'contact.email.value', href: 'mailto:info@skynet.sy' },
+  { id: 'email', icon: Envelope, labelKey: 'contact.email', valueKey: 'contact.email.value', href: 'mailto:skynetconpany@gmail.com' },
   { id: 'address', icon: MapPin, labelKey: 'contact.address', valueKey: 'contact.address.value', href: 'https://www.google.com/maps/search/?api=1&query=33.5363381,36.359278' },
 ]
 
@@ -93,9 +93,9 @@ export function Contact() {
           className="mt-12 max-w-4xl mx-auto rounded-2xl overflow-hidden border border-[#4274D9]/10 dark:border-[#95CCDD]/15"
         >
           <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3304.0!2d36.359278!3d33.5363381!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1518e5d075d02c03%3A0x87bb952a6ce03e11!2sArbin%2C%20Syria!5e0!3m2!1sen!2s!4v1700000000000!5m2!1sen!2s"
+            src="https://www.google.com/maps?q=33.5363381,36.359278&z=15&output=embed"
             width="100%"
-            height="300"
+            height="350"
             style={{ border: 0 }}
             allowFullScreen
             loading="lazy"
