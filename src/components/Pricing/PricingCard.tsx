@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { Check, Lightning } from '@phosphor-icons/react'
 import { useI18nStore } from '../../store/useI18nStore'
+import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion'
 import type { PricingPackage } from '../../types/pricing'
 
 interface PricingCardProps {
@@ -9,12 +10,13 @@ interface PricingCardProps {
 
 export function PricingCard({ pkg }: PricingCardProps) {
   const t = useI18nStore((state) => state.t)
+  const prefersReduced = usePrefersReducedMotion()
   const isPopular = pkg.isPopular
   const speedValue = parseInt(pkg.speed)
 
   return (
     <motion.div
-      whileHover={{ y: -4 }}
+      whileHover={prefersReduced ? {} : { y: -4 }}
       transition={{ type: 'spring', stiffness: 400, damping: 25 }}
       className={`relative flex flex-col rounded-[20px] ${
         isPopular
@@ -98,9 +100,9 @@ export function PricingCard({ pkg }: PricingCardProps) {
 
         <a href="#contact" className="block w-full mt-auto">
           <motion.button
-            whileHover={{ scale: 1.01 }}
-            whileTap={{ scale: 0.98 }}
-            className={`w-full py-3.5 rounded-xl font-semibold text-sm transition-all duration-200 cursor-pointer ${
+            whileHover={prefersReduced ? {} : { scale: 1.01 }}
+            whileTap={prefersReduced ? {} : { scale: 0.98 }}
+            className={`w-full py-3.5 rounded-xl font-semibold text-sm transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4274D9] focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-900 ${
               isPopular
                 ? 'bg-gradient-to-r from-[#4274D9] to-[#293681] dark:from-[#95CCDD] dark:to-[#4274D9] text-white dark:text-slate-900 shadow-[0_4px_20px_-4px_rgba(66,116,217,0.4)] dark:shadow-[0_4px_20px_-4px_rgba(149,204,221,0.3)]'
                 : 'bg-slate-900 hover:bg-slate-800 dark:bg-white dark:hover:bg-slate-100 text-white dark:text-slate-900'

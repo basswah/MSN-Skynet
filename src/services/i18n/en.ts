@@ -133,6 +133,8 @@ export const en: ITranslationMap = {
   'hero.visual.aria': 'SkyNet network signal illustration',
 
   'a11y.skipToContent': 'Skip to content',
+  'a11y.mainNav': 'Main navigation',
+  'a11y.mobileNav': 'Mobile navigation',
 
   'social.facebook': 'Facebook',
   'social.instagram': 'Instagram',

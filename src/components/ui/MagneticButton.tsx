@@ -1,10 +1,6 @@
 import { useRef, useCallback, type ReactNode, type MouseEvent } from 'react';
 import { motion } from 'framer-motion';
 
-interface WindowWithLenis {
-  lenis?: { scrollTo: (target: string | Element) => void };
-}
-
 type MagneticButtonVariant = 'primary' | 'secondary' | 'ghost';
 type MagneticButtonSize = 'sm' | 'md' | 'lg';
 
@@ -34,6 +30,11 @@ const sizeStyles: Record<MagneticButtonSize, string> = {
   lg: 'px-10 py-5 text-lg gap-3',
 };
 
+function smoothScrollTo(el: Element) {
+  const targetY = el.getBoundingClientRect().top + window.scrollY - 80;
+  window.scrollTo({ top: targetY, behavior: 'smooth' });
+}
+
 export function MagneticButton({
   children,
   variant = 'primary',
@@ -54,25 +55,18 @@ export function MagneticButton({
       e.preventDefault();
       const el = document.querySelector(href);
       if (el) {
-        const lenis = (window as WindowWithLenis).lenis;
-        if (lenis) {
-          lenis.scrollTo(el);
-        } else {
-          window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
-        }
+        smoothScrollTo(el);
       }
     }
     onClick?.();
   }, [disabled, href, onClick]);
 
-  // التصميم الأساسي مع التركيز على توسيع مساحة اللمس
-  const buttonClasses = `${variantStyles[variant]} ${sizeStyles[size]} ${className} inline-flex items-center justify-center font-semibold rounded-xl transition-all duration-300 cursor-pointer select-none focus-visible:outline-2 focus-visible:outline-offset-2 touch-action-manipulation`;
+  const buttonClasses = `${variantStyles[variant]} ${sizeStyles[size]} ${className} inline-flex items-center justify-center font-semibold rounded-xl transition-all duration-300 cursor-pointer select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4274D9] focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-950 touch-action-manipulation`;
 
   const motionProps = {
     className: buttonClasses,
     onClick: handleClick,
     whileTap: { scale: 0.95 },
-    // التأثير المغناطيسي فقط للكمبيوتر
     ...(window.matchMedia('(hover: hover)').matches && {
       whileHover: { scale: 1.05 },
     }),

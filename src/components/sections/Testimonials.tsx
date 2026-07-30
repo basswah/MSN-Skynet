@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { Quotes, Star, User } from '@phosphor-icons/react'
 import { useI18nStore } from '../../store/useI18nStore'
+import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion'
 import type { ITestimonial } from '../../types'
 
 const testimonials: ITestimonial[] = [
@@ -38,6 +39,7 @@ function StarRating({ rating }: { rating: number }) {
 
 export function Testimonials() {
   const t = useI18nStore((state) => state.t)
+  const prefersReduced = usePrefersReducedMotion()
   const featured = testimonials[0]
 
   return (
@@ -52,10 +54,10 @@ export function Testimonials() {
 
       <div className="relative z-10 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={prefersReduced ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.8, ease }}
+          transition={prefersReduced ? { duration: 0 } : { duration: 0.8, ease }}
           className="text-center mb-16 lg:mb-24"
         >
           <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#293681]/5 dark:bg-[#95CCDD]/10 text-[#4274D9] dark:text-[#95CCDD] text-xs font-semibold tracking-wider mb-6">
@@ -73,10 +75,10 @@ export function Testimonials() {
 
         <div className="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-8 lg:gap-12 items-start">
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
+            initial={prefersReduced ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: '-60px' }}
-            transition={{ duration: 0.8, ease }}
+            transition={prefersReduced ? { duration: 0 } : { duration: 0.8, ease }}
           >
             <div className="relative rounded-3xl p-5 sm:p-8 lg:p-10 bg-white/80 dark:bg-slate-900/60 backdrop-blur-md border border-[#4274D9]/10 dark:border-[#95CCDD]/15 shadow-[0_20px_60px_-15px_rgba(66,116,217,0.15)] dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3)]">
               <div className="absolute inset-0 rounded-3xl overflow-hidden pointer-events-none">
@@ -115,10 +117,10 @@ export function Testimonials() {
             {testimonials.map((item, index) => (
               <motion.div
                 key={item.id}
-                initial={{ opacity: 0, x: 50 }}
+                initial={prefersReduced ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: '-40px' }}
-                transition={{ duration: 0.6, delay: index * 0.1, ease }}
+                transition={prefersReduced ? { duration: 0 } : { duration: 0.6, delay: index * 0.1, ease }}
                 className="group relative w-full p-5 lg:p-6 rounded-2xl bg-white/60 dark:bg-slate-900/40 backdrop-blur-sm border border-[#4274D9]/8 dark:border-[#95CCDD]/10 hover:bg-white/90 dark:hover:bg-slate-900/70 hover:border-[#4274D9]/20 dark:hover:border-[#95CCDD]/25 transition-all duration-200 hover:shadow-[0_8px_30px_-8px_rgba(66,116,217,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4274D9] focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-950"
                 tabIndex={0}
               >

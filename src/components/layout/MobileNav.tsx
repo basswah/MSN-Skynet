@@ -87,7 +87,7 @@ export function MobileNav({ isOpen, navItems, onClose, prefersReduced }: MobileN
           >
             <div className="flex items-center justify-between px-5 h-16 border-b border-slate-100 dark:border-slate-800/80">
               <a href="#hero" onClick={(e) => { e.preventDefault(); scrollTo('#hero') }}>
-                <img src="/skynetLogo-dark.svg" alt="" className="h-9 w-auto object-contain" />
+                <img src="/skynetLogo-dark.svg" alt="" className="h-7 w-auto object-contain" />
               </a>
               <motion.button
                 ref={closeRef}
@@ -100,7 +100,7 @@ export function MobileNav({ isOpen, navItems, onClose, prefersReduced }: MobileN
               </motion.button>
             </div>
 
-            <nav className="flex-1 overflow-y-auto px-4 py-5" aria-label="Mobile navigation">
+            <nav className="flex-1 overflow-y-auto px-4 py-5" aria-label={t('a11y.mobileNav')}>
               <div className="space-y-1">
                 {navItems.map((link, i) => (
                   <motion.a

@@ -4,39 +4,9 @@ import { Lightning } from '@phosphor-icons/react'
 import { useI18nStore } from '../../store/useI18nStore'
 import { MagneticButton } from '../ui/MagneticButton'
 import { HeroVisual } from '../ui/HeroVisual'
+import { staggerContainer, staggerItem, titleWords, particles } from './heroAnimations'
 
 const ease = [0.32, 0.72, 0, 1] as [number, number, number, number]
-
-const staggerContainer = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.08, delayChildren: 0.2 },
-  },
-}
-
-const staggerItem = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.8, ease },
-  },
-}
-
-const titleWords = (text: string) =>
-  text.split(' ').map((word, i) => ({
-    word,
-    id: i,
-  }))
-
-const particles = Array.from({ length: 40 }).map((_, i) => ({
-  id: i,
-  left: `${Math.random() * 100}%`,
-  top: `${Math.random() * 100}%`,
-  duration: 3 + Math.random() * 4,
-  delay: Math.random() * 3,
-}))
 
 export function Hero() {
   const t = useI18nStore((state) => state.t)

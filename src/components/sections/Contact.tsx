@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { Phone, Envelope, MapPin, EnvelopeSimple } from '@phosphor-icons/react'
 import { useI18nStore } from '../../store/useI18nStore'
+import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion'
 
 interface IContactInfo {
   id: string
@@ -21,6 +22,7 @@ const ease = [0.32, 0.72, 0, 1] as const
 
 export function Contact() {
   const t = useI18nStore((state) => state.t)
+  const prefersReduced = usePrefersReducedMotion()
 
   return (
     <section
@@ -34,10 +36,10 @@ export function Contact() {
 
       <div className="relative z-10 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={prefersReduced ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.8, ease }}
+          transition={prefersReduced ? { duration: 0 } : { duration: 0.8, ease }}
           className="text-center mb-16 lg:mb-24"
         >
           <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#293681]/5 dark:bg-[#95CCDD]/10 text-[#4274D9] dark:text-[#95CCDD] text-xs font-semibold tracking-wider mb-6">
@@ -62,11 +64,11 @@ export function Contact() {
                 href={item.href}
                 target={item.id === 'address' ? '_blank' : undefined}
                 rel={item.id === 'address' ? 'noopener noreferrer' : undefined}
-                initial={{ opacity: 0, y: 30 }}
+                initial={prefersReduced ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-40px' }}
-                transition={{ duration: 0.6, delay: i * 0.1, ease }}
-                className="group flex flex-col items-center text-center p-6 rounded-2xl bg-white/50 dark:bg-slate-900/30 backdrop-blur-sm border border-[#4274D9]/8 dark:border-[#95CCDD]/10 hover:bg-white/80 dark:hover:bg-slate-900/50 hover:border-[#4274D9]/15 dark:hover:border-[#95CCDD]/20 transition-all duration-300 cursor-pointer"
+                transition={prefersReduced ? { duration: 0 } : { duration: 0.6, delay: i * 0.1, ease }}
+                className="group flex flex-col items-center text-center p-6 rounded-2xl bg-white/50 dark:bg-slate-900/30 backdrop-blur-sm border border-[#4274D9]/8 dark:border-[#95CCDD]/10 hover:bg-white/80 dark:hover:bg-slate-900/50 hover:border-[#4274D9]/15 dark:hover:border-[#95CCDD]/20 transition-all duration-300 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4274D9] focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-950"
               >
                 <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#4274D9]/10 to-[#95CCDD]/10 dark:from-[#95CCDD]/10 dark:to-[#4274D9]/10 flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110">
                   <Icon size={24} className="text-[#4274D9] dark:text-[#95CCDD]" weight="duotone" />
@@ -86,22 +88,21 @@ export function Contact() {
         </div>
 
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
+          initial={prefersReduced ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, margin: '-40px' }}
-          transition={{ duration: 0.8, delay: 0.3, ease }}
+          transition={prefersReduced ? { duration: 0 } : { duration: 0.8, delay: 0.3, ease }}
           className="mt-12 max-w-4xl mx-auto rounded-2xl overflow-hidden border border-[#4274D9]/10 dark:border-[#95CCDD]/15"
         >
           <iframe
             src="https://www.google.com/maps?q=33.5363381,36.359278&z=15&output=embed"
             width="100%"
             height="350"
-            style={{ border: 0 }}
+            className="w-full border-0"
             allowFullScreen
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
             title={t('contact.address.value')}
-            className="w-full"
           />
         </motion.div>
       </div>

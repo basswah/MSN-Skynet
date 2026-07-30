@@ -25,7 +25,7 @@ export function DesktopNav({ navItems, isOverDarkBg, prefersReduced }: DesktopNa
 
   return (
     <>
-      <nav className="hidden lg:flex items-center gap-1" aria-label="Main navigation">
+      <nav className="hidden lg:flex items-center gap-1" aria-label={t('a11y.mainNav')}>
         {navItems.map((link) => (
           <motion.a
             key={link.id}

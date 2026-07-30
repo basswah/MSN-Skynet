@@ -133,6 +133,8 @@ export const ar: ITranslationMap = {
   'hero.visual.aria': 'رسوم توضيحية لإشارة شبكة سكاي نت',
 
   'a11y.skipToContent': 'انتقل إلى المحتوى',
+  'a11y.mainNav': 'القائمة الرئيسية',
+  'a11y.mobileNav': 'القائمة المتنقلة',
 
   'social.facebook': 'فيسبوك',
   'social.instagram': 'انستغرام',

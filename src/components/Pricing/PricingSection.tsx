@@ -2,6 +2,7 @@ import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { ArrowsClockwise } from '@phosphor-icons/react'
 import { useI18nStore } from '../../store/useI18nStore'
+import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion'
 import { pricingPackages } from './pricingData'
 import { PricingCard } from './PricingCard'
 
@@ -9,6 +10,7 @@ const ease = [0.32, 0.72, 0, 1] as const
 
 export function PricingSection() {
   const t = useI18nStore((state) => state.t)
+  const prefersReduced = usePrefersReducedMotion()
   const scrollRef = useRef<HTMLDivElement>(null)
 
   const { scrollYProgress } = useScroll({
@@ -16,7 +18,7 @@ export function PricingSection() {
     offset: ['start end', 'end start'],
   })
 
-  const x = useTransform(scrollYProgress, [0, 1], ['1%', '-1%'])
+  const x = useTransform(scrollYProgress, [0, 1], prefersReduced ? ['0%', '0%'] : ['1%', '-1%'])
 
   return (
     <section className="relative py-20 sm:py-28 lg:py-36" id="services">
@@ -28,10 +30,10 @@ export function PricingSection() {
 
       <div className="relative z-10 max-w-[1400px] mx-auto px-5 sm:px-6 lg:px-8">
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={prefersReduced ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.8, ease }}
+          transition={prefersReduced ? { duration: 0 } : { duration: 0.8, ease }}
           className="text-center mb-16 lg:mb-20"
         >
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight leading-none text-slate-900 dark:text-white">
@@ -48,16 +50,15 @@ export function PricingSection() {
         <motion.div style={{ x }} className="mb-6">
           <div
             ref={scrollRef}
-            className="flex gap-3 sm:gap-4 lg:gap-5 overflow-x-auto pb-6 pt-2 px-1 snap-x snap-mandatory"
-            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+            className="flex gap-3 sm:gap-4 lg:gap-5 overflow-x-auto pb-6 pt-2 px-1 snap-x snap-mandatory scrollbar-hide"
           >
             {pricingPackages.map((pkg, i) => (
               <motion.div
                 key={pkg.id}
-                initial={{ opacity: 0, y: 40 }}
+                initial={prefersReduced ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-40px' }}
-                transition={{ duration: 0.5, delay: i * 0.06, ease }}
+                transition={prefersReduced ? { duration: 0 } : { duration: 0.5, delay: i * 0.06, ease }}
                 className="snap-start flex-shrink-0 w-[260px] sm:w-[280px] lg:w-[300px]"
               >
                 <PricingCard pkg={pkg} />
@@ -67,10 +68,10 @@ export function PricingSection() {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0 }}
+          initial={prefersReduced ? { opacity: 1 } : { opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.5 }}
+          transition={prefersReduced ? { duration: 0 } : { delay: 0.5 }}
           className="flex items-center justify-center gap-2 text-xs text-slate-400 dark:text-slate-500"
         >
           <ArrowsClockwise size={14} className="rotate-90" />

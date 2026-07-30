@@ -1,12 +1,14 @@
 import { motion } from 'framer-motion'
 import { GlobeHemisphereWest } from '@phosphor-icons/react'
 import { useI18nStore } from '../../store/useI18nStore'
+import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion'
 import { NetworkViz } from './NetworkViz'
 
 const ease = [0.32, 0.72, 0, 1] as const
 
 export function About() {
   const t = useI18nStore((state) => state.t)
+  const prefersReduced = usePrefersReducedMotion()
 
   return (
     <section id="about" className="relative bg-slate-50 dark:bg-slate-950 py-16 sm:py-24 lg:py-32 overflow-hidden">
@@ -15,16 +17,16 @@ export function About() {
       <div className="relative max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
+            initial={prefersReduced ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-80px' }}
-            transition={{ duration: 0.8, ease }}
+            transition={prefersReduced ? { duration: 0 } : { duration: 0.8, ease }}
           >
-            <motion.span 
-              initial={{ opacity: 0, x: -20 }}
+            <motion.span
+              initial={prefersReduced ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
+              transition={prefersReduced ? { duration: 0 } : { delay: 0.2 }}
               className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#293681]/5 dark:bg-[#95CCDD]/10 text-[#4274D9] dark:text-[#95CCDD] text-xs font-semibold tracking-wider mb-6"
             >
               <GlobeHemisphereWest size={14} weight="duotone" />
@@ -35,11 +37,11 @@ export function About() {
               {t('about.title')}
             </h2>
             
-            <motion.div 
-              initial={{ scaleX: 0 }}
+            <motion.div
+              initial={prefersReduced ? { scaleX: 1 } : { scaleX: 0 }}
               whileInView={{ scaleX: 1 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.4, duration: 0.6 }}
+              transition={prefersReduced ? { duration: 0 } : { delay: 0.4, duration: 0.6 }}
               className="w-16 h-1 bg-gradient-to-r from-[#4274D9] to-[#95CCDD] rounded-full mb-8 origin-left"
             />
             
@@ -58,9 +60,9 @@ export function About() {
 
             <motion.a
               href="#contact"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="inline-block px-6 py-3 bg-[#4274D9] text-white rounded-xl font-semibold text-sm shadow-lg shadow-[#4274D9]/25 cursor-pointer mt-8"
+              whileHover={prefersReduced ? {} : { scale: 1.05 }}
+              whileTap={prefersReduced ? {} : { scale: 0.95 }}
+              className="inline-block px-6 py-3 bg-[#4274D9] text-white rounded-xl font-semibold text-sm shadow-lg shadow-[#4274D9]/25 cursor-pointer mt-8 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4274D9] focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-950"
             >
               {t('nav.cta')}
             </motion.a>
