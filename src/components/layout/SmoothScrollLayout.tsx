@@ -1,6 +1,7 @@
 import { useEffect, useState, type ReactNode } from 'react'
 import Lenis from 'lenis'
 import { useI18nStore } from '../../store/useI18nStore'
+import { useRouteScroll } from '../../hooks/useRouteScroll'
 import { SmoothScrollContext } from './SmoothScrollContext'
 
 interface SmoothScrollLayoutProps {
@@ -14,6 +15,7 @@ export function SmoothScrollLayout({
 }: SmoothScrollLayoutProps) {
   const t = useI18nStore((state) => state.t)
   const [lenis, setLenis] = useState<Lenis | null>(null)
+  useRouteScroll()
 
   useEffect(() => {
     if (!enabled) return

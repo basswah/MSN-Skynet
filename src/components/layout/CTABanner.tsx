@@ -18,7 +18,7 @@ export function CTABanner() {
       transition={{ duration: 0.8, ease }}
       className="pt-12 sm:pt-16 lg:pt-20 pb-10 sm:pb-14 lg:pb-16"
     >
-      <div className="relative rounded-2xl bg-gradient-to-br from-[#4274D9]/10 via-[#293681]/5 to-transparent border border-white/[0.06] p-6 sm:p-8 lg:p-10">
+      <div className="relative rounded-2xl bg-gradient-to-br from-[#4274D9]/10 via-[#293681]/5 to-transparent dark:bg-[#0a0a0a] border border-white/[0.06] p-6 sm:p-8 lg:p-10">
         <div className="absolute inset-0 rounded-2xl bg-[radial-gradient(ellipse_at_30%_50%,rgba(66,116,217,0.08),transparent_60%)] pointer-events-none" />
         <div className="relative flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 lg:gap-10">
           <div className="max-w-2xl">

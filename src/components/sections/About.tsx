@@ -30,7 +30,7 @@ export function About() {
               className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#293681]/5 dark:bg-[#95CCDD]/10 text-[#4274D9] dark:text-[#95CCDD] text-xs font-semibold tracking-wider mb-6"
             >
               <GlobeHemisphereWest size={14} weight="duotone" />
-              {t('about.title')}
+              {t('about.badge')}
             </motion.span>
             
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tighter text-slate-900 dark:text-white leading-none mb-6">

@@ -1,34 +1,44 @@
-import { Navbar } from './components/layout/Navbar'
-import { Footer } from './components/layout/Footer'
-import { Hero } from './components/sections/Hero'
-import { About } from './components/sections/About'
-import { Features } from './components/sections/Features'
-import { Coverage } from './components/sections/Coverage'
-import { PricingSection } from './components/Pricing/PricingSection'
-import { Testimonials } from './components/sections/Testimonials'
-import { Contact } from './components/sections/Contact'
-import { ScrollProgress } from './components/ui/ScrollProgress'
+import { lazy, Suspense } from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { SmoothScrollLayout } from './components/layout/SmoothScrollLayout'
 import { ErrorBoundary } from './components/ui/ErrorBoundary'
+import { useI18nStore } from './store/useI18nStore'
+import { HomePage } from './pages/HomePage'
+
+const EquipmentPage = lazy(() =>
+  import('./pages/EquipmentPage').then((m) => ({ default: m.EquipmentPage }))
+)
+
+function RouteFallback() {
+  const t = useI18nStore((state) => state.t)
+  return (
+    <div className="min-h-[60vh] flex items-center justify-center" role="status" aria-label={t('a11y.loading')}>
+      <div className="w-10 h-10 rounded-full border-2 border-[#4274D9]/20 border-t-[#4274D9] animate-spin" />
+    </div>
+  )
+}
 
 function App() {
   return (
-    <SmoothScrollLayout>
-      <main id="main-content">
-        <ErrorBoundary>
-          <ScrollProgress />
-          <Navbar />
-          <Hero />
-          <About />
-          <Features />
-          <Coverage />
-          <PricingSection />
-          <Testimonials />
-          <Contact />
-          <Footer />
-        </ErrorBoundary>
-      </main>
-    </SmoothScrollLayout>
+    <BrowserRouter>
+      <SmoothScrollLayout>
+        <main id="main-content">
+          <ErrorBoundary>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route
+                path="/equipment"
+                element={
+                  <Suspense fallback={<RouteFallback />}>
+                    <EquipmentPage />
+                  </Suspense>
+                }
+              />
+            </Routes>
+          </ErrorBoundary>
+        </main>
+      </SmoothScrollLayout>
+    </BrowserRouter>
   )
 }
 

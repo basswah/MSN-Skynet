@@ -1,4 +1,5 @@
 import { type ReactNode, type MouseEvent } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 interface SmoothScrollLinkProps {
   href: string
@@ -19,6 +20,8 @@ export function SmoothScrollLink({
   ariaLabel,
   onClick,
 }: SmoothScrollLinkProps) {
+  const navigate = useNavigate()
+
   const handleClick = (e: MouseEvent<HTMLAnchorElement>) => {
     if (target === '_blank') return
 
@@ -28,6 +31,8 @@ export function SmoothScrollLink({
       if (el) {
         const y = el.getBoundingClientRect().top + window.scrollY - 80
         window.scrollTo({ top: y, behavior: 'smooth' })
+      } else {
+        navigate(`/${href}`)
       }
     }
 

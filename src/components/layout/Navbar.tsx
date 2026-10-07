@@ -1,4 +1,5 @@
-import { useCallback } from 'react'
+import { useCallback, type MouseEvent } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { List } from '@phosphor-icons/react'
 import { useI18nStore } from '../../store/useI18nStore'
@@ -25,6 +26,18 @@ export function Navbar() {
   const navItems = useNavItems(activeId)
   const closeMobile = useCallback(() => setMobileMenuOpen(false), [setMobileMenuOpen])
   const logoSrc = !isOverDarkBg && !isDarkMode ? '/skynetLogo-light.svg' : '/skynetLogo-dark.svg'
+
+  const navigate = useNavigate()
+  const { pathname } = useLocation()
+
+  const handleLogoClick = (e: MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault()
+    if (pathname === '/') {
+      window.scrollTo({ top: 0, behavior: prefersReduced ? 'auto' : 'smooth' })
+    } else {
+      navigate('/')
+    }
+  }
 
   const headerAnimation = prefersReduced ? {} : { variants: navStaggerContainer, initial: 'hidden', animate: 'visible' }
 
@@ -53,7 +66,7 @@ export function Navbar() {
 
         <div className="relative max-w-[1400px] mx-auto px-4 lg:px-8">
           <div className="flex items-center justify-between h-16 lg:h-[72px]">
-            <motion.a href="#hero" variants={navStaggerItem} className="flex items-center shrink-0">
+            <motion.a href="#hero" variants={navStaggerItem} className="flex items-center shrink-0" onClick={handleLogoClick}>
               <img src={logoSrc} alt="" className="h-10 lg:h-[60px] w-auto object-contain" />
             </motion.a>
 
@@ -69,6 +82,8 @@ export function Navbar() {
                 }`}
                 whileTap={prefersReduced ? {} : { scale: 0.92 }}
                 aria-label={isMobileMenuOpen ? t('nav.closeMenu') : t('nav.openMenu')}
+                aria-expanded={isMobileMenuOpen}
+                aria-controls={isMobileMenuOpen ? 'mobile-nav-panel' : undefined}
               >
                 <List size={22} weight="bold" />
               </motion.button>

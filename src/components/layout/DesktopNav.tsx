@@ -1,4 +1,5 @@
 import { useCallback } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { useI18nStore } from '../../store/useI18nStore'
 import { MagneticButton } from '../ui/MagneticButton'
@@ -15,52 +16,93 @@ interface DesktopNavProps {
 
 export function DesktopNav({ navItems, isOverDarkBg, prefersReduced }: DesktopNavProps) {
   const t = useI18nStore((state) => state.t)
+  const navigate = useNavigate()
 
-  const scrollTo = useCallback((href: string) => {
-    const el = document.querySelector(href)
-    if (!el) return
-    const y = el.getBoundingClientRect().top + window.scrollY - 80
-    window.scrollTo({ top: y, behavior: 'smooth' })
-  }, [])
+  const scrollTo = useCallback(
+    (href: string) => {
+      const el = document.querySelector(href)
+      if (!el) {
+        navigate(`/${href}`)
+        return
+      }
+      const y = el.getBoundingClientRect().top + window.scrollY - 80
+      window.scrollTo({ top: y, behavior: 'smooth' })
+    },
+    [navigate]
+  )
+
+  const isRouterLink = (href: string) => href.startsWith('/')
 
   return (
     <>
       <nav className="hidden lg:flex items-center gap-1" aria-label={t('a11y.mainNav')}>
-        {navItems.map((link) => (
-          <motion.a
-            key={link.id}
-            href={link.href}
-            variants={prefersReduced ? {} : navStaggerItem}
-            onClick={(e) => {
-              e.preventDefault()
-              scrollTo(link.href)
-            }}
-            className="relative px-4 py-2 text-sm font-medium transition-colors duration-300 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4274D9] focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-950 rounded-lg"
-          >
-            <span
-              className={`relative z-10 transition-colors duration-300 ${
-                link.isActive
-                  ? 'text-[#4274D9] dark:text-[#95CCDD]'
-                  : isOverDarkBg
-                    ? 'text-white/70 hover:text-white'
-                    : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white'
-              }`}
-            >
-              {t(link.labelKey)}
-            </span>
-            <motion.span
-              layoutId="nav-indicator"
-              className="absolute inset-x-3 bottom-0 h-[2px] rounded-full"
-              initial={false}
-              animate={{
-                scaleX: link.isActive ? 1 : 0,
-                opacity: link.isActive ? 1 : 0,
-                backgroundColor: link.isActive ? 'rgb(66,116,217)' : 'rgba(66,116,217,0.3)',
+        {navItems.map((link) => {
+          if (isRouterLink(link.href)) {
+            return (
+              <motion.div key={link.id} variants={prefersReduced ? {} : navStaggerItem}>
+                <Link
+                  to={link.href}
+                  className={`relative px-4 py-2 text-sm font-medium transition-colors duration-300 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4274D9] focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-950 rounded-lg ${
+                    link.isActive
+                      ? 'text-[#4274D9] dark:text-[#95CCDD]'
+                      : isOverDarkBg
+                        ? 'text-white/70 hover:text-white'
+                        : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white'
+                  }`}
+                >
+                  <span className="relative z-10">{t(link.labelKey)}</span>
+                  <motion.span
+                    layoutId="nav-indicator"
+                    className="absolute inset-x-3 bottom-0 h-[2px] rounded-full"
+                    initial={false}
+                    animate={{
+                      scaleX: link.isActive ? 1 : 0,
+                      opacity: link.isActive ? 1 : 0,
+                      backgroundColor: link.isActive ? 'rgb(66,116,217)' : 'rgba(66,116,217,0.3)',
+                    }}
+                    transition={{ type: 'spring', stiffness: 200, damping: 18 }}
+                  />
+                </Link>
+              </motion.div>
+            )
+          }
+
+          return (
+            <motion.a
+              key={link.id}
+              href={link.href}
+              variants={prefersReduced ? {} : navStaggerItem}
+              onClick={(e) => {
+                e.preventDefault()
+                scrollTo(link.href)
               }}
-              transition={{ type: 'spring', stiffness: 200, damping: 18 }}
-            />
-          </motion.a>
-        ))}
+              className="relative px-4 py-2 text-sm font-medium transition-colors duration-300 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4274D9] focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-950 rounded-lg"
+            >
+              <span
+                className={`relative z-10 transition-colors duration-300 ${
+                  link.isActive
+                    ? 'text-[#4274D9] dark:text-[#95CCDD]'
+                    : isOverDarkBg
+                      ? 'text-white/70 hover:text-white'
+                      : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white'
+                }`}
+              >
+                {t(link.labelKey)}
+              </span>
+              <motion.span
+                layoutId="nav-indicator"
+                className="absolute inset-x-3 bottom-0 h-[2px] rounded-full"
+                initial={false}
+                animate={{
+                  scaleX: link.isActive ? 1 : 0,
+                  opacity: link.isActive ? 1 : 0,
+                  backgroundColor: link.isActive ? 'rgb(66,116,217)' : 'rgba(66,116,217,0.3)',
+                }}
+                transition={{ type: 'spring', stiffness: 200, damping: 18 }}
+              />
+            </motion.a>
+          )
+        })}
       </nav>
 
       <motion.div variants={prefersReduced ? {} : navStaggerItem} className="hidden lg:flex items-center gap-3.5">

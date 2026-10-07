@@ -12,6 +12,10 @@ dist
 dist-ssr
 *.local
 
+# Local working assets (not shipped with the site)
+product-images/
+design-system/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

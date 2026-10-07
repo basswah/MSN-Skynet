@@ -5,6 +5,7 @@ export const navLinks: INavLink[] = [
   { id: 'about', labelKey: 'nav.about', href: '#about' },
   { id: 'coverage', labelKey: 'nav.coverage', href: '#coverage' },
   { id: 'services', labelKey: 'nav.services', href: '#services' },
+  { id: 'equipment', labelKey: 'nav.equipment', href: '/equipment' },
   { id: 'testimonials', labelKey: 'nav.testimonials', href: '#testimonials' },
   { id: 'contact', labelKey: 'nav.contact', href: '#contact' },
 ]

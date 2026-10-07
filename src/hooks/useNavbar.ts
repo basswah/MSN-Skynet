@@ -1,31 +1,38 @@
 import { useEffect, useState, useMemo } from 'react'
-import { useScroll, useTransform } from 'framer-motion'
+import { useLocation } from 'react-router-dom'
+import { useScroll, useTransform, useMotionValueEvent } from 'framer-motion'
 import { navLinks } from '../services/navigation'
 
 const NAV_ITEMS = ['hero', 'about', 'coverage', 'services', 'testimonials', 'contact']
 const SCROLL_THRESHOLD = 20
 
 export function useNavItems(activeId: string) {
+  const { pathname } = useLocation()
   return useMemo(
     () =>
       navLinks.map((link) => ({
         ...link,
-        isActive: activeId === link.id,
+        isActive:
+          link.href === pathname ||
+          (pathname === '/' && link.href.startsWith('#') && activeId === link.id),
       })),
-    [activeId]
+    [activeId, pathname]
   )
 }
 
 export function useScrollEffects() {
+  const { pathname } = useLocation()
+  const isHomePage = pathname === '/'
   const { scrollY } = useScroll()
-  const [isOverDarkBg, setIsOverDarkBg] = useState(true)
+  const [scrolledPastHero, setScrolledPastHero] = useState(
+    () => scrollY.get() >= window.innerHeight * 0.75
+  )
 
-  useEffect(() => {
-    const unsub = scrollY.on('change', (latest) => {
-      setIsOverDarkBg(latest < window.innerHeight * 0.75)
-    })
-    return unsub
-  }, [scrollY])
+  useMotionValueEvent(scrollY, 'change', (latest) => {
+    setScrolledPastHero(latest >= window.innerHeight * 0.75)
+  })
+
+  const isOverDarkBg = isHomePage && !scrolledPastHero
 
   const headerShadow = useTransform(
     scrollY,

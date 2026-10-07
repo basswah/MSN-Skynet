@@ -1,7 +1,9 @@
 import { motion } from 'framer-motion'
-import { Quotes, Star, User } from '@phosphor-icons/react'
+import { Quotes } from '@phosphor-icons/react'
 import { useI18nStore } from '../../store/useI18nStore'
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion'
+import { StarRating } from '../ui/StarRating'
+import { UserAvatar } from '../ui/UserAvatar'
 import type { ITestimonial } from '../../types'
 
 const testimonials: ITestimonial[] = [
@@ -11,31 +13,6 @@ const testimonials: ITestimonial[] = [
 ]
 
 const ease = [0.32, 0.72, 0, 1] as const
-
-function UserAvatar({ className }: { className?: string }) {
-  return (
-    <div
-      className={`flex items-center justify-center bg-gradient-to-br from-[#4274D9] to-[#293681] dark:from-[#95CCDD] dark:to-[#4274D9] ${className ?? ''}`}
-    >
-      <User size={24} weight="fill" className="text-white dark:text-[#0F172A]" />
-    </div>
-  )
-}
-
-function StarRating({ rating }: { rating: number }) {
-  return (
-    <div className="flex gap-1">
-      {Array.from({ length: 5 }).map((_, i) => (
-        <Star
-          key={i}
-          size={14}
-          weight={i < rating ? 'fill' : 'regular'}
-          className={i < rating ? 'text-[#4274D9]' : 'text-slate-300 dark:text-slate-700'}
-        />
-      ))}
-    </div>
-  )
-}
 
 export function Testimonials() {
   const t = useI18nStore((state) => state.t)
@@ -62,7 +39,7 @@ export function Testimonials() {
         >
           <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#293681]/5 dark:bg-[#95CCDD]/10 text-[#4274D9] dark:text-[#95CCDD] text-xs font-semibold tracking-wider mb-6">
             <Quotes size={14} weight="fill" />
-            {t('testimonials.title')}
+            {t('testimonials.badge')}
           </span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tighter text-slate-900 dark:text-white leading-none">
             {t('testimonials.title')}
@@ -114,15 +91,14 @@ export function Testimonials() {
           </motion.div>
 
           <div className="flex flex-col gap-4">
-            {testimonials.map((item, index) => (
+            {testimonials.slice(1).map((item, index) => (
               <motion.div
                 key={item.id}
                 initial={prefersReduced ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: '-40px' }}
                 transition={prefersReduced ? { duration: 0 } : { duration: 0.6, delay: index * 0.1, ease }}
-                className="group relative w-full p-5 lg:p-6 rounded-2xl bg-white/60 dark:bg-slate-900/40 backdrop-blur-sm border border-[#4274D9]/8 dark:border-[#95CCDD]/10 hover:bg-white/90 dark:hover:bg-slate-900/70 hover:border-[#4274D9]/20 dark:hover:border-[#95CCDD]/25 transition-all duration-200 hover:shadow-[0_8px_30px_-8px_rgba(66,116,217,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4274D9] focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-950"
-                tabIndex={0}
+                className="group relative w-full p-5 lg:p-6 rounded-2xl bg-white/60 dark:bg-slate-900/40 backdrop-blur-sm border border-[#4274D9]/8 dark:border-[#95CCDD]/10 hover:bg-white/90 dark:hover:bg-slate-900/70 hover:border-[#4274D9]/20 dark:hover:border-[#95CCDD]/25 transition-all duration-200 hover:shadow-[0_8px_30px_-8px_rgba(66,116,217,0.12)]"
               >
                 <div className="flex items-center gap-4 mb-3">
                   <UserAvatar className="w-10 h-10 rounded-xl flex-shrink-0" />
