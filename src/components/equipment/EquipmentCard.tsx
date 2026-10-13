@@ -86,6 +86,21 @@ export function EquipmentCard({ item, index }: EquipmentCardProps) {
         <div aria-hidden className="my-5 h-px w-full bg-gradient-to-r from-transparent via-slate-200 to-transparent dark:via-slate-700/80" />
 
         <div className="mt-auto">
+          <div className="mb-4 flex items-baseline justify-between gap-3">
+            <span className="text-xs font-medium text-slate-500 dark:text-slate-400">
+              {t('equipment.price.label')}
+            </span>
+            <span
+              className={
+                item.price > 0
+                  ? 'text-xl font-extrabold tracking-tight text-[#293681] dark:text-[#95CCDD]'
+                  : 'rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-500 dark:bg-white/5 dark:text-slate-400'
+              }
+            >
+              {t(item.priceKey)}
+            </span>
+          </div>
+
           <Link
             to="/#contact"
             className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#4274D9] to-[#293681] px-4 py-2.5 text-sm font-semibold text-white shadow-[0_4px_16px_-4px_rgba(66,116,217,0.5)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_-6px_rgba(66,116,217,0.55)] active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4274D9] focus-visible:ring-offset-2 dark:from-[#95CCDD] dark:to-[#4274D9] dark:focus-visible:ring-offset-slate-950"
