@@ -4,6 +4,7 @@ import { Hero } from '../components/sections/Hero'
 import { About } from '../components/sections/About'
 import { Features } from '../components/sections/Features'
 import { Coverage } from '../components/sections/Coverage'
+import { EquipmentShowcase } from '../components/sections/EquipmentShowcase'
 import { PricingSection } from '../components/Pricing/PricingSection'
 import { Testimonials } from '../components/sections/Testimonials'
 import { Contact } from '../components/sections/Contact'
@@ -18,6 +19,7 @@ export function HomePage() {
       <About />
       <Features />
       <Coverage />
+      <EquipmentShowcase />
       <PricingSection />
       <Testimonials />
       <Contact />

@@ -1,6 +1,11 @@
 import type { ITranslationMap } from '../types'
 
 export const arSections: ITranslationMap = {
+  'showcase.badge': 'معدات الشبكة',
+  'showcase.title': 'جهّز بيتك بأفضل المعدات',
+  'showcase.desc': 'راوترات وهوائيات مختارة بعناية بأسعار تناسب كل احتياج — مع التركيب والضمان من فريق سكاي نت.',
+  'showcase.browseAll': 'تصفّح كل المعدات',
+
   'features.sectionTitle': 'لماذا تختار سكاي نت؟',
   'feature.highspeed': 'سرعات عالية وباقات محدودة',
   'feature.highspeed.desc': 'اختر سرعة تصل إلى 100 ميجابت مع باقة بيانات محدودة تناسب استخدامك — مثل 60 جيجابت شهرياً.',

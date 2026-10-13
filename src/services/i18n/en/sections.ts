@@ -1,6 +1,11 @@
 import type { ITranslationMap } from '../types'
 
 export const enSections: ITranslationMap = {
+  'showcase.badge': 'Our Equipment',
+  'showcase.title': 'Equip Your Home with the Best',
+  'showcase.desc': 'Carefully selected routers and dishes at prices for every need — with installation and warranty from the SkyNet team.',
+  'showcase.browseAll': 'Browse All Equipment',
+
   'features.sectionTitle': 'Why Choose SkyNet?',
   'feature.highspeed': 'High Speed with Limited Plans',
   'feature.highspeed.desc': 'Choose speeds up to 100 Mbps with a capped data plan that fits your usage — for example, 60 GB per month.',
