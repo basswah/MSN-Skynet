@@ -36,6 +36,10 @@ const cardVariants: Variants = {
 const allAreaKeys = Array.from({ length: 14 }, (_, i) => `coverage.area.${i + 1}`)
 const featuredKeys = allAreaKeys.slice(0, 3)
 const secondaryKeys = allAreaKeys.slice(3)
+const reducedMotionVariants: Variants = {
+  hidden: { opacity: 1, y: 0, scale: 1 },
+  visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0 } },
+}
 
 export function Coverage() {
   const t = useI18nStore((state) => state.t)
@@ -50,10 +54,10 @@ export function Coverage() {
       <div className="relative max-w-[1400px] mx-auto px-5 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-[1.3fr_0.7fr] gap-12 lg:gap-16 items-start mb-16 lg:mb-20">
           <motion.div
-            initial="hidden"
+            initial={prefersReduced ? false : 'hidden'}
             whileInView="visible"
             viewport={{ once: true, margin: '-80px' }}
-            variants={headerVariants}
+            variants={prefersReduced ? reducedMotionVariants : headerVariants}
           >
             <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#293681]/5 dark:bg-[#95CCDD]/10 text-[#4274D9] dark:text-[#95CCDD] text-xs font-semibold tracking-wider mb-5">
               {t('coverage.title')}
@@ -65,10 +69,10 @@ export function Coverage() {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+            initial={prefersReduced ? false : { opacity: 0, scale: 0.9 }}
+            whileInView={prefersReduced ? undefined : { opacity: 1, scale: 1 }}
             viewport={{ once: true, margin: '-60px' }}
-            transition={{ duration: 0.8, ease, delay: 0.3 }}
+            transition={prefersReduced ? { duration: 0 } : { duration: 0.8, ease, delay: 0.3 }}
             className="flex justify-center lg:justify-end"
           >
             <CoverageVisual />
@@ -76,16 +80,16 @@ export function Coverage() {
         </div>
 
         <motion.div
-          initial="hidden"
+          initial={prefersReduced ? false : 'hidden'}
           whileInView="visible"
           viewport={{ once: true, margin: '-40px' }}
-          variants={prefersReduced ? {} : staggerContainer}
+          variants={prefersReduced ? reducedMotionVariants : staggerContainer}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-5 mb-6"
         >
           {featuredKeys.map((key) => (
             <motion.div
               key={key}
-              variants={cardVariants}
+              variants={prefersReduced ? reducedMotionVariants : cardVariants}
               className="group relative flex items-center gap-4 p-5 sm:p-6 rounded-2xl border border-slate-200/60 dark:border-slate-800/60 bg-white/60 dark:bg-slate-900/40 backdrop-blur-sm overflow-hidden cursor-default transition-all duration-300 hover:border-[#4274D9]/30 dark:hover:border-[#95CCDD]/20 hover:-translate-y-1 hover:shadow-[0_8px_30px_-12px_rgba(66,116,217,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4274D9] focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-950 will-change-transform"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-[#4274D9]/0 via-transparent to-[#95CCDD]/0 group-hover:from-[#4274D9]/[0.03] group-hover:to-[#95CCDD]/[0.02] transition-all duration-500" />
@@ -101,16 +105,16 @@ export function Coverage() {
         </motion.div>
 
         <motion.div
-          initial="hidden"
+          initial={prefersReduced ? false : 'hidden'}
           whileInView="visible"
           viewport={{ once: true, margin: '-40px' }}
-          variants={prefersReduced ? {} : staggerContainer}
+          variants={prefersReduced ? reducedMotionVariants : staggerContainer}
           className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 lg:gap-4"
         >
           {secondaryKeys.map((key) => (
             <motion.div
               key={key}
-              variants={cardVariants}
+              variants={prefersReduced ? reducedMotionVariants : cardVariants}
               className="group relative flex items-center gap-2.5 p-3.5 sm:p-4 rounded-xl border border-slate-200/60 dark:border-slate-800/60 bg-white/40 dark:bg-slate-900/30 backdrop-blur-sm transition-all duration-200 hover:border-[#4274D9]/20 dark:hover:border-[#95CCDD]/15 hover:bg-white/70 dark:hover:bg-slate-900/50 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4274D9] focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-950 will-change-transform"
             >
               <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-[#4274D9]/5 dark:bg-[#95CCDD]/5 flex items-center justify-center group-hover:bg-[#4274D9]/10 dark:group-hover:bg-[#95CCDD]/10 transition-colors duration-200">

@@ -127,10 +127,8 @@ export function MobileNav({ isOpen, navItems, onClose, prefersReduced }: MobileN
             </nav>
 
             <div className="px-4 pb-5 pt-4 border-t border-slate-100 dark:border-slate-800/80 space-y-3">
-              <MagneticButton variant="primary" size="md" strength={0.15} className="w-full">
-                <a href="#contact" onClick={(e) => { e.preventDefault(); scrollTo('#contact') }} className="w-full text-center">
-                  {t('nav.cta')}
-                </a>
+              <MagneticButton variant="primary" size="md" href="#contact" onClick={onClose} className="w-full">
+                {t('nav.cta')}
               </MagneticButton>
               <p className="text-center text-[11px] text-slate-400 dark:text-slate-600">
                 {t('footer.copyright')}

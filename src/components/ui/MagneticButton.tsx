@@ -1,5 +1,6 @@
-import { useRef, useCallback, type ReactNode, type MouseEvent } from 'react';
+import { useCallback, type ReactNode, type MouseEvent } from 'react';
 import { motion } from 'framer-motion';
+import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
 
 type MagneticButtonVariant = 'primary' | 'secondary' | 'ghost';
 type MagneticButtonSize = 'sm' | 'md' | 'lg';
@@ -8,7 +9,6 @@ interface MagneticButtonProps {
   children: ReactNode;
   variant?: MagneticButtonVariant;
   size?: MagneticButtonSize;
-  strength?: number;
   disabled?: boolean;
   onClick?: () => void;
   className?: string;
@@ -30,11 +30,6 @@ const sizeStyles: Record<MagneticButtonSize, string> = {
   lg: 'px-10 py-5 text-lg gap-3',
 };
 
-function smoothScrollTo(el: Element) {
-  const targetY = el.getBoundingClientRect().top + window.scrollY - 80;
-  window.scrollTo({ top: targetY, behavior: 'smooth' });
-}
-
 export function MagneticButton({
   children,
   variant = 'primary',
@@ -47,37 +42,39 @@ export function MagneticButton({
   target,
   rel,
 }: MagneticButtonProps) {
-  const ref = useRef<HTMLAnchorElement & HTMLButtonElement>(null);
+  const prefersReducedMotion = usePrefersReducedMotion();
 
   const handleClick = useCallback((e: MouseEvent<HTMLElement>) => {
     if (disabled) { e.preventDefault(); return; }
     if (href && href.startsWith('#')) {
-      e.preventDefault();
-      const el = document.querySelector(href);
+      const el = document.getElementById(href.slice(1));
       if (el) {
-        smoothScrollTo(el);
+        e.preventDefault();
+        const targetY = el.getBoundingClientRect().top + window.scrollY - 80;
+        window.scrollTo({ top: targetY, behavior: prefersReducedMotion ? 'instant' : 'smooth' });
       }
     }
     onClick?.();
-  }, [disabled, href, onClick]);
+  }, [disabled, href, onClick, prefersReducedMotion]);
 
   const buttonClasses = `${variantStyles[variant]} ${sizeStyles[size]} ${className} inline-flex items-center justify-center font-semibold rounded-xl transition-all duration-300 cursor-pointer select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4274D9] focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-950 touch-action-manipulation`;
 
+  const supportsHover = typeof window !== 'undefined' && window.matchMedia('(hover: hover)').matches;
   const motionProps = {
     className: buttonClasses,
     onClick: handleClick,
-    whileTap: { scale: 0.95 },
-    ...(window.matchMedia('(hover: hover)').matches && {
+    whileTap: prefersReducedMotion ? undefined : { scale: 0.98 },
+    ...(!prefersReducedMotion && supportsHover && {
       whileHover: { scale: 1.05 },
     }),
   };
 
   return href ? (
-    <motion.a ref={ref} href={href} target={target} rel={rel} {...motionProps}>
+    <motion.a href={href} target={target} rel={rel} aria-disabled={disabled || undefined} {...motionProps}>
       {children}
     </motion.a>
   ) : (
-    <motion.button ref={ref} type={type} disabled={disabled} {...motionProps}>
+    <motion.button type={type} disabled={disabled} {...motionProps}>
       {children}
     </motion.button>
   );

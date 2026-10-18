@@ -2,6 +2,7 @@ import { useEffect, useState, type ReactNode } from 'react'
 import Lenis from 'lenis'
 import { useI18nStore } from '../../store/useI18nStore'
 import { useRouteScroll } from '../../hooks/useRouteScroll'
+import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion'
 import { SmoothScrollContext } from './SmoothScrollContext'
 
 interface SmoothScrollLayoutProps {
@@ -14,39 +15,45 @@ export function SmoothScrollLayout({
   enabled = true,
 }: SmoothScrollLayoutProps) {
   const t = useI18nStore((state) => state.t)
+  const prefersReducedMotion = usePrefersReducedMotion()
   const [lenis, setLenis] = useState<Lenis | null>(null)
   useRouteScroll()
 
   useEffect(() => {
-    if (!enabled) return
-
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: 'vertical',
-      gestureOrientation: 'vertical',
-      smoothWheel: true,
-      wheelMultiplier: 1,
-      touchMultiplier: 2,
-    })
-
-    const rafId = requestAnimationFrame(() => {
-      setLenis(lenis)
-    })
+    let lenis: Lenis | null = null
+    let rafId = 0
 
     function raf(time: number) {
+      if (!lenis) return
       lenis.raf(time)
-      requestAnimationFrame(raf)
+      rafId = requestAnimationFrame(raf)
     }
 
-    requestAnimationFrame(raf)
+    const initRafId = requestAnimationFrame((time) => {
+      if (!enabled || prefersReducedMotion) {
+        setLenis(null)
+        return
+      }
+
+      lenis = new Lenis({
+        duration: 1.2,
+        easing: (progress: number) => Math.min(1, 1.001 - Math.pow(2, -10 * progress)),
+        orientation: 'vertical',
+        gestureOrientation: 'vertical',
+        smoothWheel: true,
+        wheelMultiplier: 1,
+        touchMultiplier: 2,
+      })
+      setLenis(lenis)
+      raf(time)
+    })
 
     return () => {
+      cancelAnimationFrame(initRafId)
       cancelAnimationFrame(rafId)
-      lenis.destroy()
-      setLenis(null)
+      lenis?.destroy()
     }
-  }, [enabled])
+  }, [enabled, prefersReducedMotion])
 
   return (
     <SmoothScrollContext.Provider value={{ lenis }}>

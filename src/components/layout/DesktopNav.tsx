@@ -108,10 +108,8 @@ export function DesktopNav({ navItems, isOverDarkBg, prefersReduced }: DesktopNa
       <motion.div variants={prefersReduced ? {} : navStaggerItem} className="hidden lg:flex items-center gap-3.5">
         <LanguageToggle lightOverride={isOverDarkBg} />
         <ThemeToggle lightOverride={isOverDarkBg} />
-        <MagneticButton variant="primary" size="sm" strength={0.2}>
-          <a href="#contact" onClick={(e) => { e.preventDefault(); scrollTo('#contact') }}>
-            {t('nav.cta')}
-          </a>
+        <MagneticButton variant="primary" size="sm" href="#contact">
+          {t('nav.cta')}
         </MagneticButton>
       </motion.div>
     </>

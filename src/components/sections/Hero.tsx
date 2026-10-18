@@ -4,12 +4,14 @@ import { Lightning } from '@phosphor-icons/react'
 import { useI18nStore } from '../../store/useI18nStore'
 import { MagneticButton } from '../ui/MagneticButton'
 import { HeroVisual } from '../ui/HeroVisual'
+import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion'
 import { staggerContainer, staggerItem, titleWords, particles } from './heroAnimations'
 
 const ease = [0.32, 0.72, 0, 1] as [number, number, number, number]
 
 export function Hero() {
   const t = useI18nStore((state) => state.t)
+  const prefersReducedMotion = usePrefersReducedMotion()
   const containerRef = useRef<HTMLDivElement>(null)
 
   const { scrollYProgress } = useScroll({
@@ -23,6 +25,7 @@ export function Hero() {
   })
   const textOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
   const textBlur = useTransform(scrollYProgress, [0, 0.4], [0, 6])
+  const textFilter = useTransform(textBlur, (value) => `blur(${value}px)`)
 
   const visualY = useSpring(useTransform(scrollYProgress, [0, 1], [0, -60]), {
     stiffness: 80,
@@ -50,8 +53,8 @@ export function Hero() {
             key={p.id}
             className="absolute w-1 h-1 rounded-full bg-[#95CCDD]/30 hidden sm:block"
             style={{ left: p.left, top: p.top }}
-            animate={{ opacity: [0.2, 0.6, 0.2], scale: [0.8, 1.2, 0.8] }}
-            transition={{ duration: p.duration, repeat: Infinity, delay: p.delay, ease: 'easeInOut' }}
+            animate={prefersReducedMotion ? { opacity: 0.4 } : { opacity: [0.2, 0.6, 0.2], scale: [0.8, 1.2, 0.8] }}
+            transition={prefersReducedMotion ? { duration: 0 } : { duration: p.duration, repeat: Infinity, delay: p.delay, ease: 'easeInOut' }}
           />
         ))}
       </div>
@@ -59,18 +62,18 @@ export function Hero() {
       <div className="relative z-10 max-w-[1400px] mx-auto px-5 sm:px-6 lg:px-12 min-h-[100dvh] flex items-center">
         <div className="grid grid-cols-1 lg:grid-cols-[1.3fr_1fr] gap-8 lg:gap-16 items-center w-full py-24 sm:py-32 md:py-40">
           <motion.div
-            variants={staggerContainer}
-            initial="hidden"
+            variants={prefersReducedMotion ? undefined : staggerContainer}
+            initial={prefersReducedMotion ? false : 'hidden'}
             animate="visible"
-            style={{ y: textY, opacity: textOpacity, filter: useTransform(textBlur, (v) => `blur(${v}px)`) }}
+            style={prefersReducedMotion ? undefined : { y: textY, opacity: textOpacity, filter: textFilter }}
             className="order-2 lg:order-1"
           >
-            <motion.div variants={staggerItem}>
+            <motion.div variants={prefersReducedMotion ? undefined : staggerItem}>
               <motion.span
                 className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full bg-white/[0.06] border border-white/[0.08] text-[#95CCDD] text-[11px] sm:text-xs font-medium tracking-widest mb-6 sm:mb-8"
-                whileHover={{ scale: 1.03 }}
-                onHoverStart={() => badgeScale.set(1.03)}
-                onHoverEnd={() => badgeScale.set(1)}
+                whileHover={prefersReducedMotion ? undefined : { scale: 1.03 }}
+                onHoverStart={() => { if (!prefersReducedMotion) badgeScale.set(1.03) }}
+                onHoverEnd={() => { if (!prefersReducedMotion) badgeScale.set(1) }}
                 style={{ scale: badgeScale }}
               >
                 <Lightning size={14} weight="fill" className="text-[#95CCDD]" />
@@ -86,9 +89,9 @@ export function Hero() {
                 {titleWords(titleText).map(({ word, id }) => (
                   <motion.span
                     key={id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.3 + id * 0.06, ease }}
+                    initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
+                    animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+                    transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5, delay: 0.3 + id * 0.06, ease }}
                     className="inline-block"
                   >
                     {word}
@@ -109,20 +112,20 @@ export function Hero() {
               variants={staggerItem}
               className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 mt-8 sm:mt-10"
             >
-              <MagneticButton variant="primary" size="lg" strength={0.25}>
-                <a href="#contact">{t('hero.cta.primary')}</a>
+              <MagneticButton variant="primary" size="lg" href="#contact">
+                {t('hero.cta.primary')}
               </MagneticButton>
-              <MagneticButton variant="secondary" size="lg" strength={0.25}>
-                <a href="#services">{t('hero.cta.secondary')}</a>
+              <MagneticButton variant="secondary" size="lg" href="#services">
+                {t('hero.cta.secondary')}
               </MagneticButton>
             </motion.div>
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, x: -30 }}
-            animate={{ opacity: 1, scale: 1, x: 0 }}
-            transition={{ duration: 1, ease, delay: 0.3 }}
-            style={{ y: visualY, scale: visualScale, opacity: visualOpacity }}
+            initial={prefersReducedMotion ? false : { opacity: 0, scale: 0.9, x: -30 }}
+            animate={prefersReducedMotion ? undefined : { opacity: 1, scale: 1, x: 0 }}
+            transition={prefersReducedMotion ? { duration: 0 } : { duration: 1, ease, delay: 0.3 }}
+            style={prefersReducedMotion ? undefined : { y: visualY, scale: visualScale, opacity: visualOpacity }}
             className="hidden lg:block order-1 lg:order-2 w-full max-w-none mx-auto lg:mx-0"
           >
             <HeroVisual scrollProgress={scrollYProgress} />
