@@ -7,3 +7,9 @@ export interface INavLink {
 export interface INavItem extends INavLink {
   isActive: boolean
 }
+
+export interface IDesktopNavProps {
+  navItems: INavItem[]
+  isOverDarkBg: boolean
+  prefersReduced: boolean
+}

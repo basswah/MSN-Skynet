@@ -9,6 +9,7 @@ import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion'
 import { useNavItems, useScrollEffects, useActiveSection, useScrollLock } from '../../hooks/useNavbar'
 import { ThemeToggle } from '../ui/ThemeToggle'
 import { LanguageToggle } from '../ui/LanguageToggle'
+import { PaymentLink } from '../ui/PaymentLink'
 import { navStaggerContainer, navStaggerItem } from './navAnimations'
 import { DesktopNav } from './DesktopNav'
 import { MobileNav } from './MobileNav'
@@ -64,17 +65,18 @@ export function Navbar() {
           }}
         />
 
-        <div className="relative max-w-[1400px] mx-auto px-4 lg:px-8">
-          <div className="flex items-center justify-between h-16 lg:h-[72px]">
+        <div className="relative max-w-[1400px] mx-auto px-3 sm:px-4 xl:px-8">
+          <div className="flex items-center justify-between h-16 xl:h-[72px]">
             <motion.a href="#hero" variants={navStaggerItem} className="flex items-center shrink-0" onClick={handleLogoClick}>
-              <img src={logoSrc} alt="" className="h-10 lg:h-[60px] w-auto object-contain" />
+              <img src={logoSrc} alt="" className="h-10 xl:h-[60px] w-auto object-contain" />
             </motion.a>
 
             <DesktopNav navItems={navItems} isOverDarkBg={isOverDarkBg} prefersReduced={prefersReduced} />
 
-            <motion.div variants={navStaggerItem} className="flex lg:hidden items-center gap-1.5">
+            <motion.div variants={navStaggerItem} className="flex xl:hidden items-center gap-1 sm:gap-1.5">
               <LanguageToggle lightOverride={isOverDarkBg} />
               <ThemeToggle lightOverride={isOverDarkBg} />
+              <PaymentLink compact lightOverride={isOverDarkBg} />
               <motion.button
                 onClick={toggleMobileMenu}
                 className={`relative w-11 h-11 flex items-center justify-center rounded-xl transition-colors duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4274D9] focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-950 ${

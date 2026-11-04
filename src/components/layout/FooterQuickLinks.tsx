@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 import { useI18nStore } from '../../store/useI18nStore'
 import { navLinks } from '../../services/navigation'
 import { SmoothScrollLink } from '../ui/SmoothScrollLink'
+import { PaymentLink } from '../ui/PaymentLink'
 
 const ease = [0.32, 0.72, 0, 1] as const
 
@@ -31,6 +32,9 @@ export function FooterQuickLinks({ prefersReduced }: { prefersReduced: boolean }
             </SmoothScrollLink>
           </li>
         ))}
+        <li>
+          <PaymentLink variant="text" />
+        </li>
       </ul>
     </motion.div>
   )

@@ -12,6 +12,10 @@ export const arHome: ITranslationMap = {
   'nav.openMenu': 'فتح القائمة',
   'nav.closeMenu': 'إغلاق القائمة',
 
+  'payment.shortLabel': 'تسديد',
+  'payment.label': 'تسديد الاشتراك',
+  'payment.ariaLabel': 'تسديد الاشتراك، يفتح نظام الدفع في تبويب جديد',
+
   'hero.title': 'سكاي نت: الإنترنت الأسرع والأكثر استقراراً في ريف دمشق',
   'hero.subtitle': 'إنترنت عالي السرعة والثبات في ريف دمشق — تركيب سريع، دعم فني على مدار الساعة، وباقات مرنة تناسب كل الاحتياجات.',
   'hero.cta.primary': 'اشترك الآن',

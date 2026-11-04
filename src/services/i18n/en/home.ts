@@ -12,6 +12,10 @@ export const enHome: ITranslationMap = {
   'nav.openMenu': 'Open menu',
   'nav.closeMenu': 'Close menu',
 
+  'payment.shortLabel': 'Pay',
+  'payment.label': 'Pay Subscription',
+  'payment.ariaLabel': 'Pay Subscription, opens the payment system in a new tab',
+
   'hero.title': 'SkyNet: The Fastest & Most Stable Internet in Rural Damascus',
   'hero.subtitle': 'High-speed, reliable internet across Rural Damascus — fast installation, 24/7 support, and flexible plans for every need.',
   'hero.cta.primary': 'Subscribe Now',

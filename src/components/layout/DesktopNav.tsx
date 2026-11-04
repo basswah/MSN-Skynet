@@ -5,16 +5,11 @@ import { useI18nStore } from '../../store/useI18nStore'
 import { MagneticButton } from '../ui/MagneticButton'
 import { ThemeToggle } from '../ui/ThemeToggle'
 import { LanguageToggle } from '../ui/LanguageToggle'
+import { PaymentLink } from '../ui/PaymentLink'
 import { navStaggerItem } from './navAnimations'
-import type { INavItem } from '../../types'
+import type { IDesktopNavProps } from '../../types/navigation'
 
-interface DesktopNavProps {
-  navItems: INavItem[]
-  isOverDarkBg: boolean
-  prefersReduced: boolean
-}
-
-export function DesktopNav({ navItems, isOverDarkBg, prefersReduced }: DesktopNavProps) {
+export function DesktopNav({ navItems, isOverDarkBg, prefersReduced }: IDesktopNavProps) {
   const t = useI18nStore((state) => state.t)
   const navigate = useNavigate()
 
@@ -35,14 +30,14 @@ export function DesktopNav({ navItems, isOverDarkBg, prefersReduced }: DesktopNa
 
   return (
     <>
-      <nav className="hidden lg:flex items-center gap-1" aria-label={t('a11y.mainNav')}>
+      <nav className="hidden xl:flex shrink-0 items-center gap-0.5 2xl:gap-1 whitespace-nowrap" aria-label={t('a11y.mainNav')}>
         {navItems.map((link) => {
           if (isRouterLink(link.href)) {
             return (
               <motion.div key={link.id} variants={prefersReduced ? {} : navStaggerItem}>
                 <Link
                   to={link.href}
-                  className={`relative px-4 py-2 text-sm font-medium transition-colors duration-300 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4274D9] focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-950 rounded-lg ${
+                  className={`relative px-2.5 2xl:px-4 py-2 text-sm font-medium transition-colors duration-300 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4274D9] focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-950 rounded-lg ${
                     link.isActive
                       ? 'text-[#4274D9] dark:text-[#95CCDD]'
                       : isOverDarkBg
@@ -76,7 +71,7 @@ export function DesktopNav({ navItems, isOverDarkBg, prefersReduced }: DesktopNa
                 e.preventDefault()
                 scrollTo(link.href)
               }}
-              className="relative px-4 py-2 text-sm font-medium transition-colors duration-300 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4274D9] focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-950 rounded-lg"
+              className="relative px-2.5 2xl:px-4 py-2 text-sm font-medium transition-colors duration-300 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4274D9] focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-950 rounded-lg"
             >
               <span
                 className={`relative z-10 transition-colors duration-300 ${
@@ -105,9 +100,10 @@ export function DesktopNav({ navItems, isOverDarkBg, prefersReduced }: DesktopNa
         })}
       </nav>
 
-      <motion.div variants={prefersReduced ? {} : navStaggerItem} className="hidden lg:flex items-center gap-3.5">
+      <motion.div variants={prefersReduced ? {} : navStaggerItem} className="hidden xl:flex shrink-0 items-center gap-2 whitespace-nowrap">
         <LanguageToggle lightOverride={isOverDarkBg} />
         <ThemeToggle lightOverride={isOverDarkBg} />
+        <PaymentLink lightOverride={isOverDarkBg} />
         <MagneticButton variant="primary" size="sm" href="#contact">
           {t('nav.cta')}
         </MagneticButton>

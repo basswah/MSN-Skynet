@@ -91,7 +91,7 @@ export function MobileNav({ isOpen, navItems, onClose, prefersReduced }: MobileN
           <motion.div
             key="overlay"
             {...overlayAnim}
-            className="fixed inset-0 z-[300] bg-black/50 backdrop-blur-sm lg:hidden"
+            className="fixed inset-0 z-[300] bg-black/50 backdrop-blur-sm xl:hidden"
             onClick={onClose}
           />
 
@@ -100,7 +100,7 @@ export function MobileNav({ isOpen, navItems, onClose, prefersReduced }: MobileN
             id="mobile-nav-panel"
             ref={panelRef}
             {...panelAnim}
-            className="fixed top-0 end-0 bottom-0 z-[400] w-[min(340px,88vw)] lg:hidden flex flex-col bg-white dark:bg-slate-950 shadow-[-24px_0_60px_rgba(0,0,0,0.2)] dark:shadow-[-24px_0_60px_rgba(0,0,0,0.5)]"
+            className="fixed top-0 end-0 bottom-0 z-[400] w-[min(340px,88vw)] xl:hidden flex flex-col bg-white dark:bg-slate-950 shadow-[-24px_0_60px_rgba(0,0,0,0.2)] dark:shadow-[-24px_0_60px_rgba(0,0,0,0.5)]"
           >
             <div className="flex items-center justify-between px-5 h-16 border-b border-slate-100 dark:border-slate-800/80">
               <Link to="/" onClick={handleLogoClick}>
