@@ -1,4 +1,5 @@
 import type { ITranslationMap } from '../types'
+import { coverageAreaCount } from '../../../data/coverageData'
 
 export const enHome: ITranslationMap = {
   'nav.home': 'Home',
@@ -25,8 +26,7 @@ export const enHome: ITranslationMap = {
   'about.title': 'Our Story',
   'about.badge': 'About SkyNet',
   'about.paragraph1': 'SkyNet started over 10 years ago with a clear vision: providing high-speed, reliable internet to every home and business in Rural Damascus. From a small passionate team to one of the most trusted connectivity providers in the region.',
-  'about.paragraph2': 'Today, we proudly serve over 2,000 customers across 14 areas: Barzeh, Bostan Al-Adawi, Arbin, Zamalka, Hammouria, Al-Maliha, Esh Al-Warwar, Kfar Batna, Daf Al-Shouk, Babila, Dahiyat Al-Sham, Sqouba, Al-Qaboun, and University Housing. We deliver the latest wireless and fiber technology with an unwavering commitment to quality, speed, and trust.',
-  'about.pride': 'We are also proud to cover the University Housing for the Faculty of Agriculture in Barzeh, reflecting our commitment to serving students and researchers in the region\'s key educational institutions.',
+  'about.paragraph2': `Today, we proudly serve over 2,000 customers across ${coverageAreaCount} areas: Barzeh, Bostan Al-Adawi, Arbin, Zamalka, Hammouria, Al-Maliha, Esh Al-Warwar, Kfar Batna, Daf Al-Shouk, Babila, Dahiyat Al-Sham, Saqba, Al-Qaboun, Jaramana, and Al-Nashabiyah. We deliver the latest wireless and fiber technology with an unwavering commitment to quality, speed, and trust.`,
 
   'pricing.title': 'Internet Packages',
   'pricing.subtitle': 'Choose the package that suits your needs with the ability to upgrade anytime',

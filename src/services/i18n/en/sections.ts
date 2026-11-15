@@ -1,4 +1,5 @@
 import type { ITranslationMap } from '../types'
+import { coverageAreaCount } from '../../../data/coverageData'
 
 export const enSections: ITranslationMap = {
   'showcase.badge': 'Our Equipment',
@@ -13,7 +14,7 @@ export const enSections: ITranslationMap = {
   'feature.support.desc': 'Technical support team available around the clock.',
   'feature.installation': 'Quick Installation',
   'feature.installation.desc': 'Fast professional installation with a modern router for maximum performance.',
-  'feature.coverage': '14 Areas Coverage',
+  'feature.coverage': `Coverage Across ${coverageAreaCount} Areas`,
   'feature.coverage.desc': 'We cover key areas across Rural Damascus with exceptional quality — reaching every home and business in your neighborhood.',
   'feature.stability': 'Stable Connection',
   'feature.stability.desc': 'Stable network with no interruptions and guaranteed service quality.',
@@ -42,9 +43,9 @@ export const enSections: ITranslationMap = {
   'contact.subtitle': 'Our office is in Arbin — Before Salam Mosque. Contact us and we\'ll get you connected in any area of Rural Damascus',
 
   'coverage.title': 'Coverage Areas',
-  'coverage.subtitle': 'We cover 14 areas in Rural Damascus with high-quality internet service',
+  'coverage.subtitle': `We cover ${coverageAreaCount} areas in Rural Damascus with high-quality internet service`,
   'coverage.area.1': 'Barzeh',
-  'coverage.area.2': 'University Housing - Faculty of Agriculture',
+  'coverage.area.2': 'Jaramana',
   'coverage.area.3': 'Arbin',
   'coverage.area.4': 'Zamalka',
   'coverage.area.5': 'Hammouria',
@@ -54,22 +55,23 @@ export const enSections: ITranslationMap = {
   'coverage.area.9': 'Daf Al-Shouk',
   'coverage.area.10': 'Babila',
   'coverage.area.11': 'Dahiyat Al-Sham',
-  'coverage.area.12': 'Sqoubawi',
+  'coverage.area.12': 'Saqba',
   'coverage.area.13': 'Al-Qaboun',
   'coverage.area.14': 'Bostan Al-Adawi',
+  'coverage.area.15': 'Al-Nashabiyah',
 
   'error.title': 'Page Load Error',
   'error.description': 'An unexpected error occurred. Please try again.',
   'error.retry': 'Try Again',
 
-  'footer.description': 'SkyNet is a leading telecommunications and internet company in Rural Damascus — Syria. Providing high-quality services at competitive prices across 14 areas.',
+  'footer.description': `SkyNet is a leading telecommunications and internet company in Rural Damascus — Syria. Providing high-quality services at competitive prices across ${coverageAreaCount} areas.`,
   'footer.quickLinks': 'Quick Links',
   'footer.copyright': 'All rights reserved © 2026 SkyNet',
   'footer.services': 'Our Services',
   'footer.privacyPolicy': 'Privacy Policy',
   'footer.termsOfService': 'Terms of Service',
   'footer.cta.title': 'In Rural Damascus?',
-  'footer.cta.subtitle': 'We cover 14 areas in Rural Damascus with exceptional quality and blazing speeds. Subscribe now!',
+  'footer.cta.subtitle': `We cover ${coverageAreaCount} areas in Rural Damascus with exceptional quality and blazing speeds. Subscribe now!`,
   'footer.cta.description': 'Contact us today and get reliable internet covering your entire area.',
   'footer.backToTop': 'Back to top',
 

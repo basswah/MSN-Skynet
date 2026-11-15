@@ -3,6 +3,7 @@ import { MapPin } from '@phosphor-icons/react'
 import { useI18nStore } from '../../store/useI18nStore'
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion'
 import { CoverageVisual } from './CoverageVisual'
+import { coverageAreaKeys } from '../../data/coverageData'
 
 const ease = [0.32, 0.72, 0, 1] as const
 
@@ -33,9 +34,8 @@ const cardVariants: Variants = {
   },
 }
 
-const allAreaKeys = Array.from({ length: 14 }, (_, i) => `coverage.area.${i + 1}`)
-const featuredKeys = allAreaKeys.slice(0, 3)
-const secondaryKeys = allAreaKeys.slice(3)
+const featuredKeys = coverageAreaKeys.slice(0, 3)
+const secondaryKeys = coverageAreaKeys.slice(3)
 const reducedMotionVariants: Variants = {
   hidden: { opacity: 1, y: 0, scale: 1 },
   visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0 } },

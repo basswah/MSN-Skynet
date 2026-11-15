@@ -1,4 +1,5 @@
 import type { ITranslationMap } from '../types'
+import { coverageAreaCount } from '../../../data/coverageData'
 
 export const arSections: ITranslationMap = {
   'showcase.badge': 'معدات الشبكة',
@@ -13,7 +14,7 @@ export const arSections: ITranslationMap = {
   'feature.support.desc': 'فريق دعم فني متاح على مدار الساعة لحل أي مشكلة فوراً.',
   'feature.installation': 'تركيب سريع',
   'feature.installation.desc': 'تركيب احترافي سريع مع راوتر حديث ومتطور يضمن أقصى أداء.',
-  'feature.coverage': 'تغطية 14 منطقة',
+  'feature.coverage': `تغطية ${coverageAreaCount} منطقة`,
   'feature.coverage.desc': 'نغطي أبرز مناطق ريف دمشق بجودة استثنائية، وصولاً إلى كل بيت ومنشأة في منطقتك.',
   'feature.stability': 'اتصال مستقر',
   'feature.stability.desc': 'شبكة مستقرة بدون تقطعات مع ضمان جودة الخدمة.',
@@ -42,9 +43,9 @@ export const arSections: ITranslationMap = {
   'contact.subtitle': 'مكتبنا في عربين — قبل جامع السلام. تواصل معنا لتصلك الخدمة لأي منطقة في ريف دمشق',
 
   'coverage.title': 'مناطق التغطية',
-  'coverage.subtitle': 'نغطي 14 منطقة في ريف دمشق بخدمة إنترنت عالية الجودة',
+  'coverage.subtitle': `نغطي ${coverageAreaCount} منطقة في ريف دمشق بخدمة إنترنت عالية الجودة`,
   'coverage.area.1': 'برزة',
-  'coverage.area.2': 'سكن الجامعية - كلية الزراعة',
+  'coverage.area.2': 'جرمانا',
   'coverage.area.3': 'عربين',
   'coverage.area.4': 'زملكا',
   'coverage.area.5': 'حمورية',
@@ -57,19 +58,20 @@ export const arSections: ITranslationMap = {
   'coverage.area.12': 'سقبا',
   'coverage.area.13': 'القابون',
   'coverage.area.14': 'بساتين العدوي',
+  'coverage.area.15': 'النشابية',
 
   'error.title': 'خطأ في تحميل الصفحة',
   'error.description': 'حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.',
   'error.retry': 'المحاولة مرة أخرى',
 
-  'footer.description': 'سكاي نت شركة رائدة في مجال الاتصالات والإنترنت في ريف دمشق — سوريا. نقدم خدمات عالية الجودة بأسعار منافسة في 14 منطقة.',
+  'footer.description': `سكاي نت شركة رائدة في مجال الاتصالات والإنترنت في ريف دمشق — سوريا. نقدم خدمات عالية الجودة بأسعار منافسة في ${coverageAreaCount} منطقة.`,
   'footer.quickLinks': 'روابط سريعة',
   'footer.copyright': 'جميع الحقوق محفوظة © 2026 سكاي نت',
   'footer.services': 'خدماتنا',
   'footer.privacyPolicy': 'سياسة الخصوصية',
   'footer.termsOfService': 'شروط الخدمة',
   'footer.cta.title': 'في مناطق ريف دمشق؟',
-  'footer.cta.subtitle': 'نغطي 14 منطقة في ريف دمشق بجودة استثنائية وسرعات فائقة. اشترك الآن!',
+  'footer.cta.subtitle': `نغطي ${coverageAreaCount} منطقة في ريف دمشق بجودة استثنائية وسرعات فائقة. اشترك الآن!`,
   'footer.cta.description': 'اتصل بنا اليوم واحصل على إنترنت موثوق يغطي كل منطقتك.',
   'footer.backToTop': 'العودة للأعلى',
 
